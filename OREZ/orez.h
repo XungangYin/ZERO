@@ -7,7 +7,8 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDockWidget>
-
+#include <QMessageBox>
+#include <QString>
 //pcl
 #include <pcl/io/pcd_io.h>
 #include <pcl/point_cloud.h>
@@ -47,11 +48,16 @@ private slots:
 
     void on_action_triggered();     //打开文件
 
+    void on_action_5_triggered();
 
 public:
      PointCloudTRGB::Ptr loadPCDRGB(const string &str);
      PointCloudT::Ptr loadPCD(const string &str);
      bool addPCDFileView(string &path);
+
+private:
+    //vector<>
+
 };
 
 

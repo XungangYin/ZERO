@@ -40,17 +40,40 @@
     </property>
     <addaction name="action"/>
     <addaction name="action_2"/>
+    <addaction name="action_5"/>
     <addaction name="action_3"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>编辑</string>
+     <string>渲染显示</string>
     </property>
+    <addaction name="action_12"/>
+    <addaction name="action_13"/>
+    <addaction name="action_14"/>
+    <addaction name="action_15"/>
    </widget>
    <widget class="QMenu" name="menu_3">
     <property name="title">
-     <string>工具</string>
+     <string>计算工具</string>
     </property>
+    <widget class="QMenu" name="menu_6">
+     <property name="title">
+      <string>配准</string>
+     </property>
+     <addaction name="actionsift"/>
+     <addaction name="actionFPFH"/>
+     <addaction name="actionICP"/>
+     <addaction name="actionSAC_IA"/>
+    </widget>
+    <addaction name="action_6"/>
+    <addaction name="menu_6"/>
+    <addaction name="action_8"/>
+    <addaction name="action_9"/>
+    <addaction name="action_10"/>
+    <addaction name="actionAABB"/>
+    <addaction name="action_11"/>
+    <addaction name="actionK_Means"/>
+    <addaction name="actionMLS"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
@@ -63,7 +86,17 @@
     </property>
     <addaction name="action_4"/>
    </widget>
+   <widget class="QMenu" name="menu_7">
+    <property name="title">
+     <string>编辑</string>
+    </property>
+    <addaction name="action_16"/>
+    <addaction name="action_17"/>
+    <addaction name="action_7"/>
+    <addaction name="action_18"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_7"/>
    <addaction name="menu_2"/>
    <addaction name="menu_3"/>
    <addaction name="menu_4"/>
@@ -96,6 +129,111 @@
   <action name="action_4">
    <property name="text">
     <string>使用说明</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>重置</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>法向</string>
+   </property>
+  </action>
+  <action name="action_8">
+   <property name="text">
+    <string>重建</string>
+   </property>
+  </action>
+  <action name="action_9">
+   <property name="text">
+    <string>孔洞修补</string>
+   </property>
+  </action>
+  <action name="action_10">
+   <property name="text">
+    <string>边界识别</string>
+   </property>
+  </action>
+  <action name="actionAABB">
+   <property name="text">
+    <string>AABB包围盒</string>
+   </property>
+  </action>
+  <action name="action_11">
+   <property name="text">
+    <string>包围球</string>
+   </property>
+  </action>
+  <action name="actionK_Means">
+   <property name="text">
+    <string>K-Means</string>
+   </property>
+  </action>
+  <action name="action_12">
+   <property name="text">
+    <string>法向量</string>
+   </property>
+  </action>
+  <action name="action_13">
+   <property name="text">
+    <string>曲率</string>
+   </property>
+  </action>
+  <action name="action_14">
+   <property name="text">
+    <string>包围盒</string>
+   </property>
+  </action>
+  <action name="action_15">
+   <property name="text">
+    <string>点云着色</string>
+   </property>
+  </action>
+  <action name="actionsift">
+   <property name="text">
+    <string>SIFT配准</string>
+   </property>
+  </action>
+  <action name="actionFPFH">
+   <property name="text">
+    <string>FPFH</string>
+   </property>
+  </action>
+  <action name="actionICP">
+   <property name="text">
+    <string>ICP</string>
+   </property>
+  </action>
+  <action name="actionSAC_IA">
+   <property name="text">
+    <string>SAC-IA</string>
+   </property>
+  </action>
+  <action name="actionMLS">
+   <property name="text">
+    <string>MLS法向统一</string>
+   </property>
+  </action>
+  <action name="action_16">
+   <property name="text">
+    <string>点云合并</string>
+   </property>
+  </action>
+  <action name="action_17">
+   <property name="text">
+    <string>点云精简</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>点云分割</string>
+   </property>
+  </action>
+  <action name="action_18">
+   <property name="text">
+    <string>点云滤波</string>
    </property>
   </action>
  </widget>
