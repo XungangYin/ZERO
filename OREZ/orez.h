@@ -17,6 +17,11 @@
 //vtk
 #include <vtkRenderWindow.h>
 
+//othres
+#include "../OREZ_IO/orezio.h"
+
+
+
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointXYZRGB PointTRGB;
 typedef pcl::PointCloud<PointT> PointCloudT;
@@ -51,12 +56,10 @@ private slots:
     void on_action_5_triggered();
 
 public:
-     PointCloudTRGB::Ptr loadPCDRGB(const string &str);
-     PointCloudT::Ptr loadPCD(const string &str);
-     bool addPCDFileView(string &path);
+    bool addPCDFileView(const string &path);
 
 private:
-    //vector<>
+    OrezIO *orezIO;
 
 };
 
