@@ -1,26 +1,16 @@
 #ifndef OREZ_H
 #define OREZ_H
 
-#include <iostream>
-#include <string>
 //QT
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QDockWidget>
 #include <QMessageBox>
 #include <QString>
-//pcl
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/visualization/pcl_visualizer.h>
-//vtk
-#include <vtkRenderWindow.h>
 
 //othres
 #include "../OREZ_IO/orezio.h"
-
-
+#include "../common.h"
 
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointXYZRGB PointTRGB;

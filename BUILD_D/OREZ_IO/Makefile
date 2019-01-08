@@ -212,7 +212,8 @@ DIST          = /home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/yacc.prf \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/lex.prf \
 		../../../OREZ_IO/OREZ_IO.pro ../../OREZ_IO/orezio.h \
-		../../OREZ_IO/orez_io_global.h ../../OREZ_IO/orezio.cpp
+		../../OREZ_IO/orez_io_global.h \
+		../../common.h ../../OREZ_IO/orezio.cpp
 QMAKE_TARGET  = OREZ_IO
 DESTDIR       = 
 TARGET        = libOREZ_IO.so.1.0.0
@@ -579,7 +580,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../../OREZ_IO/orezio.h ../../OREZ_IO/orez_io_global.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../OREZ_IO/orezio.h ../../OREZ_IO/orez_io_global.h ../../common.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../../OREZ_IO/orezio.cpp $(DISTDIR)/
 
 
@@ -650,7 +651,8 @@ orezio.o: ../../OREZ_IO/orezio.cpp ../../OREZ_IO/orezio.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qglobalstatic.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qmutex.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qnumeric.h \
-		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qversiontagging.h
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
+		../../common.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orezio.o ../../OREZ_IO/orezio.cpp
 
 ####### Install

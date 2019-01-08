@@ -2,24 +2,11 @@
 #define OREZIO_H
 
 #include "orez_io_global.h"
-
+#include "../common.h"
 
 /**
  * @brief The OREZ_io class:文件读取模块
  */
-
-#include <iostream>
-#include <sstream>
-#include <pcl/io/pcd_io.h>
-#include <pcl/point_cloud.h>
-#include <pcl/point_types.h>
-#include <pcl/io/boost.h>
-
-typedef pcl::PointXYZ PointT;
-typedef pcl::PointXYZRGB PointTRGB;
-typedef pcl::PointCloud<PointT> PointCloudT;
-typedef pcl::PointCloud<PointTRGB> PointCloudTRGB;
-
 
 class OREZ_IOSHARED_EXPORT OrezIO
 {

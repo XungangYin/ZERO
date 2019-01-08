@@ -27,7 +27,8 @@ SOURCES += \
 
 HEADERS += \
         orezio.h \
-        orez_io_global.h 
+        orez_io_global.h \ 
+    ../common.h
 
 unix {
     target.path = /usr/lib
