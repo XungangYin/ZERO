@@ -164,7 +164,7 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         pointCloudTree->setHeaderItem(__qtreewidgetitem);
         pointCloudTree->setObjectName(QStringLiteral("pointCloudTree"));
-        pointCloudTree->setGeometry(QRect(10, 0, 121, 381));
+        pointCloudTree->setGeometry(QRect(20, 0, 121, 381));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(2);
@@ -247,6 +247,7 @@ public:
         menu_4->setTitle(QApplication::translate("OREZ", "\347\252\227\345\217\243", nullptr));
         menu_5->setTitle(QApplication::translate("OREZ", "\345\270\256\345\212\251", nullptr));
         menu_7->setTitle(QApplication::translate("OREZ", "\347\274\226\350\276\221", nullptr));
+        LayerDialog->setWindowTitle(QApplication::translate("OREZ", "Project", nullptr));
     } // retranslateUi
 
 };

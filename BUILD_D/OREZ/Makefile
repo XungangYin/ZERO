@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = OREZ1.0.0
-DISTDIR = /home/yxg/PCL/OREZ/BUILD_D/OREZ/.tmp/OREZ1.0.0
+DISTDIR = /home/yxg/PCL/ZERO/BUILD_D/OREZ/.tmp/OREZ1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/OREZ/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -97,6 +97,8 @@ DIST          = ../../OREZ.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
+		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -217,7 +219,7 @@ DIST          = ../../OREZ.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/exceptions.prf \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/yacc.prf \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/lex.prf \
-		../../OREZ.pro ../../OREZ/orez.h ../../OREZ/main.cpp \
+		../../../OREZ/OREZ.pro ../../OREZ/orez.h ../../OREZ/main.cpp \
 		../../OREZ/orez.cpp
 QMAKE_TARGET  = OREZ
 DESTDIR       = 
@@ -271,6 +273,8 @@ Makefile: ../../OREZ/OREZ.pro ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/feature
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
+		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -437,6 +441,8 @@ Makefile: ../../OREZ/OREZ.pro ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/feature
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri:
+../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri:
+../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri:
@@ -730,10 +736,13 @@ moc_orez.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
+		../../common.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
 		../../OREZ/orez.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/OREZ/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/OREZ/OREZ_IO -I/home/yxg/PCL/OREZ/OREZ_IO -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -979,6 +988,9 @@ main.o: ../../OREZ/main.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
+		../../common.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qapplication.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1107,6 +1119,9 @@ orez.o: ../../OREZ/orez.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
+		../../common.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
 		ui_orez.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orez.o ../../OREZ/orez.cpp
 

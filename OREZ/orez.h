@@ -54,9 +54,10 @@ private:
     //保存加载进来的数据指针
     vector<PointCloudT::Ptr> v_PointCloud;
     vector<PointCloudTRGB::Ptr> v_PointCloudRGB;
-
     //保存点云的名字
     QStringList file_name;
+
+    void initDocketWidget();
 };
 
 

@@ -11,6 +11,8 @@ OREZ::OREZ(QWidget *parent) :
     //初化输入模块
     orezIO =  new OrezIO;
     //设置默认点云
+    initDocketWidget();
+
     cloud.reset(new PointCloudT);
     cloud->points.resize(200);
     for(size_t i = 0; i< 200;++i){
@@ -53,7 +55,6 @@ void OREZ::on_action_triggered()
         return;
     }
 
-    QString info;
     std::string std_path;
     if(files.size() ==1){           //单个点云
         viewer->removeAllPointClouds();
@@ -172,3 +173,10 @@ void OREZ::updateMessage(QString info){
      ui->statusBar->showMessage(info,100000);
 }
 
+void OREZ::initDocketWidget(){
+    ui->LayerDialog->setFeatures(QDockWidget::AllDockWidgetFeatures);
+    ui->pointCloudTree->setHeaderLabel("Point Tree");
+    ui->LayerDialog->setWidget(ui->pointCloudTree);   // 只有这样,treewidget才随Docketwidget移动
+    QAction *action = ui->LayerDialog->toggleViewAction();
+    ui->mainToolBar->addAction(action);
+}

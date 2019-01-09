@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = OREZ_IO1.0.0
-DISTDIR = /home/yxg/PCL/OREZ/BUILD_D/OREZ_IO/.tmp/OREZ_IO1.0.0
+DISTDIR = /home/yxg/PCL/ZERO/BUILD_D/OREZ_IO/.tmp/OREZ_IO1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -shared -Wl,-soname,libOREZ_IO.so.1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Core -lpthread 
@@ -93,6 +93,8 @@ DIST          = /home/Qt5.10.0/5.10.0/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
+		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		/home/Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -283,6 +285,8 @@ Makefile: ../../OREZ_IO/OREZ_IO.pro ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/f
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri \
+		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri \
+		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri \
 		../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri \
@@ -445,6 +449,8 @@ Makefile: ../../OREZ_IO/OREZ_IO.pro ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/f
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_core_private.pri:
+../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization.pri:
+../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_datavisualization_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri:
 ../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/modules/qt_lib_designer.pri:
@@ -652,7 +658,43 @@ orezio.o: ../../OREZ_IO/orezio.cpp ../../OREZ_IO/orezio.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qmutex.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qnumeric.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
-		../../common.h
+		../../common.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfileinfo.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qhash.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orezio.o ../../OREZ_IO/orezio.cpp
 
 ####### Install
