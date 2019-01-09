@@ -3,7 +3,8 @@
 
 #include "orez_io_global.h"
 #include "../common.h"
-
+#include <QFile>
+#include <QFileInfo>
 /**
  * @brief The OREZ_io class:文件读取模块
  */
@@ -16,6 +17,7 @@ public:
     PointCloudT::Ptr ascToPCD(const std::string ascPath);
     PointCloudTRGB::Ptr loadPCDRGB(const std::string &str);
     PointCloudT::Ptr loadPCD(const std::string &str);
+
 };
 
 #endif // OREZIO_H

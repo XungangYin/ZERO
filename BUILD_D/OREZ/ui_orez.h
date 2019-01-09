@@ -13,12 +13,14 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDockWidget>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
 #include "QVTKWidget.h"
 
@@ -64,12 +66,15 @@ public:
     QMenu *menu_7;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
+    QDockWidget *LayerDialog;
+    QWidget *dockWidgetContents;
+    QTreeWidget *pointCloudTree;
 
     void setupUi(QMainWindow *OREZ)
     {
         if (OREZ->objectName().isEmpty())
             OREZ->setObjectName(QStringLiteral("OREZ"));
-        OREZ->resize(400, 300);
+        OREZ->resize(720, 463);
         action = new QAction(OREZ);
         action->setObjectName(QStringLiteral("action"));
         action_2 = new QAction(OREZ);
@@ -124,11 +129,11 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkwidget = new QVTKWidget(centralWidget);
         qvtkwidget->setObjectName(QStringLiteral("qvtkwidget"));
-        qvtkwidget->setGeometry(QRect(10, 10, 381, 231));
+        qvtkwidget->setGeometry(QRect(340, 0, 381, 231));
         OREZ->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(OREZ);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 28));
+        menuBar->setGeometry(QRect(0, 0, 720, 28));
         menu = new QMenu(menuBar);
         menu->setObjectName(QStringLiteral("menu"));
         menu_2 = new QMenu(menuBar);
@@ -150,6 +155,24 @@ public:
         statusBar = new QStatusBar(OREZ);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         OREZ->setStatusBar(statusBar);
+        LayerDialog = new QDockWidget(OREZ);
+        LayerDialog->setObjectName(QStringLiteral("LayerDialog"));
+        dockWidgetContents = new QWidget();
+        dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
+        pointCloudTree = new QTreeWidget(dockWidgetContents);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
+        __qtreewidgetitem->setText(0, QStringLiteral("1"));
+        pointCloudTree->setHeaderItem(__qtreewidgetitem);
+        pointCloudTree->setObjectName(QStringLiteral("pointCloudTree"));
+        pointCloudTree->setGeometry(QRect(10, 0, 121, 381));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(2);
+        sizePolicy.setHeightForWidth(pointCloudTree->sizePolicy().hasHeightForWidth());
+        pointCloudTree->setSizePolicy(sizePolicy);
+        pointCloudTree->setSizeIncrement(QSize(0, 1));
+        LayerDialog->setWidget(dockWidgetContents);
+        OREZ->addDockWidget(static_cast<Qt::DockWidgetArea>(1), LayerDialog);
 
         menuBar->addAction(menu->menuAction());
         menuBar->addAction(menu_7->menuAction());

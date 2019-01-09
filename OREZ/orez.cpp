@@ -7,7 +7,7 @@ OREZ::OREZ(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("YXG");
-    this->setFixedSize(800,600);
+    this->setFixedSize(1200,900);
     //初化输入模块
     orezIO =  new OrezIO;
     //设置默认点云
@@ -53,14 +53,18 @@ void OREZ::on_action_triggered()
         return;
     }
 
+    QString info;
     std::string std_path;
     if(files.size() ==1){           //单个点云
         viewer->removeAllPointClouds();
+        file_name.push_back(getFileName(files[0]));
         std_path = files[0].toStdString();
         if(files[0].endsWith(".pcd",Qt::CaseInsensitive)){
-               addPCDFileView(std_path);
+             addPCDFileView(std_path);
         }else if(files[0].endsWith(".asc",Qt::CaseInsensitive)){
-            viewer->addPointCloud(orezIO->ascToPCD(std_path));
+            PointCloudT::Ptr pc =  orezIO->ascToPCD(std_path);
+            v_PointCloud.push_back(pc);
+            viewer->addPointCloud(pc);
             viewer->resetCamera();
             ui->qvtkwidget->update();
         }
@@ -68,7 +72,7 @@ void OREZ::on_action_triggered()
     }else{                         //多个点云合并显示
 
     }
-
+    //updateMessage();
 /*
     for(size_t i = 0; i< files.size();i++){
         std_path = files[i].toStdString();
@@ -110,7 +114,6 @@ bool OREZ::addPCDFileView(const string &path){
     /**判断打开的文件是否带有RGB字段
       *主要思想是通过判断PCD文件的第三行是否含有rgb字符
     */
-
     static bool status = false;
     char tmp[50];
     ifstream open_file;
@@ -129,12 +132,14 @@ bool OREZ::addPCDFileView(const string &path){
     for(unsigned int i = 5; i<15;++i){    //判断是否 r字符，只判断后几个字符即可
         if(tmp[i] == 'r'){
             PointCloudTRGB::Ptr pc = orezIO->loadPCDRGB(path);
+            v_PointCloudRGB.push_back(pc);
             viewer->addPointCloud(pc);
             status = true;
             break;
         }else{
             if(i==14){                    //若没有r，则用普通方式读取
                PointCloudT::Ptr pc = orezIO->loadPCD(path);
+               v_PointCloud.push_back(pc);
                viewer->addPointCloud(pc);
                 status = true;
                 break;
@@ -154,4 +159,16 @@ void OREZ::on_action_5_triggered()
 {
     viewer->removeAllPointClouds();
     ui->qvtkwidget->update();
+    v_PointCloud.clear();
+    v_PointCloudRGB.clear();
 }
+QString OREZ::getFileName(const QString &path){
+    QString name;
+    QFileInfo fileinfo(path);
+    name = fileinfo.fileName();
+    return name;
+}
+void OREZ::updateMessage(QString info){
+     ui->statusBar->showMessage(info,100000);
+}
+
