@@ -13,17 +13,12 @@ OREZ::OREZ(QWidget *parent) :
     //设置默认点云
     initDocketWidget();
 
-    cloud.reset(new PointCloudT);
-    cloud->points.resize(200);
-    for(size_t i = 0; i< 200;++i){
-        cloud->points[i].x = 1024 * rand() /(RAND_MAX+1.0f);
-        cloud->points[i].y = 1024 * rand() /(RAND_MAX+1.0f);
-        cloud->points[i].z = 1024 * rand() /(RAND_MAX+1.0f);
-    }
+   // cloud.reset(new PointCloudTRGB);
+  //  cloud =orezIO->loadPCDRGB("../../data/pcl_logo.pcd");
 
     //设置QVTK
     viewer.reset(new pcl::visualization::PCLVisualizer("viewer",false));
-    viewer->addPointCloud(cloud,"cloud");
+    viewer->addPointCloud(orezIO->loadPCDRGB("../../data/pcl_logo.pcd"),"cloud");
     viewer->resetCamera();
 
     ui->qvtkwidget->SetRenderWindow(viewer->getRenderWindow());
@@ -58,13 +53,20 @@ void OREZ::on_action_triggered()
     std::string std_path;
     if(files.size() ==1){           //单个点云
         viewer->removeAllPointClouds();
-        file_name.push_back(getFileName(files[0]));
+       // file_name.push_back(getFileName(files[0]));
         std_path = files[0].toStdString();
         if(files[0].endsWith(".pcd",Qt::CaseInsensitive)){
              addPCDFileView(std_path);
         }else if(files[0].endsWith(".asc",Qt::CaseInsensitive)){
             PointCloudT::Ptr pc =  orezIO->ascToPCD(std_path);
-            v_PointCloud.push_back(pc);
+            PointCloudInfo<PointCloudT::Ptr> info;
+            info.p = pc;
+            info.path = std_path;
+            info.file_name = orezIO->file_name;
+            info.size = this->orezIO->size;
+            info.dim = this->orezIO->dim;
+            v_PCI.push_back(info);
+            cout<<info.file_name<<endl;
             viewer->addPointCloud(pc);
             viewer->resetCamera();
             ui->qvtkwidget->update();
@@ -133,16 +135,30 @@ bool OREZ::addPCDFileView(const string &path){
     for(unsigned int i = 5; i<15;++i){    //判断是否 r字符，只判断后几个字符即可
         if(tmp[i] == 'r'){
             PointCloudTRGB::Ptr pc = orezIO->loadPCDRGB(path);
-            v_PointCloudRGB.push_back(pc);
             viewer->addPointCloud(pc);
+            PointCloudInfo<PointCloudTRGB::Ptr> info;
+            info.p = pc;
+            info.path = path;
+            info.file_name = orezIO->file_name;
+            info.size = this->orezIO->size;
+            info.dim = this->orezIO->dim;
+            cout<<info.file_name<<endl;
+            v_PCRGBI.push_back(info);
             status = true;
             break;
         }else{
             if(i==14){                    //若没有r，则用普通方式读取
                PointCloudT::Ptr pc = orezIO->loadPCD(path);
-               v_PointCloud.push_back(pc);
                viewer->addPointCloud(pc);
-                status = true;
+               PointCloudInfo<PointCloudT::Ptr> info;
+               info.p = pc;
+               info.path = path;
+               info.file_name = orezIO->file_name;
+               info.size = this->orezIO->size;
+               info.dim = this->orezIO->dim;
+               v_PCI.push_back(info);
+               cout<<info.file_name<<endl;
+               status = true;
                 break;
             }
         }
@@ -163,12 +179,7 @@ void OREZ::on_action_5_triggered()
     v_PointCloud.clear();
     v_PointCloudRGB.clear();
 }
-QString OREZ::getFileName(const QString &path){
-    QString name;
-    QFileInfo fileinfo(path);
-    name = fileinfo.fileName();
-    return name;
-}
+
 void OREZ::updateMessage(QString info){
      ui->statusBar->showMessage(info,100000);
 }
@@ -179,4 +190,26 @@ void OREZ::initDocketWidget(){
     ui->LayerDialog->setWidget(ui->pointCloudTree);   // 只有这样,treewidget才随Docketwidget移动
     QAction *action = ui->LayerDialog->toggleViewAction();
     ui->mainToolBar->addAction(action);
+}
+
+
+//std::string OREZ::getFileName(std::string path){
+//    QString p = QString::fromStdString(path);
+//    QFileInfo fileinfo(p);
+//    return  fileinfo.fileName().toStdString();
+//}
+template <class T>
+size_t OREZ::getPointCloudSize(const T t){
+    if(t)
+        return t->points.size();
+    else{
+        std::cout<<"点云不存在"<<std::endl;
+        return 0;
+    }
+}
+
+template<class T>
+std::string OREZ::getPontCloudDim(const T t){
+     std::string str =  pcl::getFieldsList(t);
+     return str;
 }

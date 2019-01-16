@@ -15,6 +15,19 @@
 
 using namespace  std;
 
+////声明一个结构体模板,保存点云信息
+template <class T>
+struct PointCloudInfo
+{
+     T p ;
+     std::string path = "";
+     std::string file_name=  "";
+     size_t size = 0;
+     std::string dim = "";
+};
+
+
+
 namespace Ui {
 class OREZ;
 }
@@ -45,18 +58,25 @@ public:
 
     void updateMessage(QString info); //状态栏显示点云文件名，点数，类型(xyzOrrgb)
 
-    QString getFileName(const QString &path); //获取点云文件的名字
+    //std::string getFileName(std::string path); //获取点云文件的名字
+    template <class T>
+    size_t getPointCloudSize(const T t);  //获取点云大小
+
+    template<class T>
+    std::string getPontCloudDim(const T t); //获取点云的维度信息
+
 private:
     //构造默认的显示点云
-    PointCloudT::Ptr cloud;
+    PointCloudTRGB::Ptr cloud;
     //IO模块
     OrezIO *orezIO;
     //保存加载进来的数据指针
     vector<PointCloudT::Ptr> v_PointCloud;
     vector<PointCloudTRGB::Ptr> v_PointCloudRGB;
-    //保存点云的名字
-    QStringList file_name;
 
+    //保存点云基础信息数组
+    std::vector<PointCloudInfo<PointCloudT::Ptr>> v_PCI;
+    std::vector<PointCloudInfo<PointCloudTRGB::Ptr>> v_PCRGBI;
     void initDocketWidget();
 };
 

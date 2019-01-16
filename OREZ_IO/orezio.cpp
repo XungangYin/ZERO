@@ -11,7 +11,14 @@ PointCloudTRGB::Ptr OrezIO::loadPCDRGB(const std::string &str){
     PointCloudTRGB::Ptr pc(new PointCloudTRGB);
     if(pcl::io::loadPCDFile(str,*pc) == -1){
         PCL_ERROR("打开PCD文件失败");
+        return nullptr;
     }
+    std::string path = str;
+    this->path = path;
+    this->file_name = this->getFileName(path);
+    this->dim = this->getPontCloudDim(*pc);
+    this->size = this->getPointCloudSize(pc);
+
     return pc;
 }
  //读取PCD文件
@@ -19,7 +26,13 @@ PointCloudT::Ptr OrezIO::loadPCD(const std::string &str){
     PointCloudT::Ptr pc(new PointCloudT);
     if(pcl::io::loadPCDFile(str,*pc) == -1){
         PCL_ERROR("打开PCD文件失败");
+        return nullptr;
     }
+    std::string path = str;
+    this->path = path;
+    this->file_name = this->getFileName(path);
+    this->dim = this->getPontCloudDim(*pc);
+    this->size = this->getPointCloudSize(pc);
     return pc;
 }
 
@@ -54,6 +67,12 @@ PointCloudT::Ptr OrezIO::ascToPCD(const std::string ascPath){
             throw ascPath;
 
         file.close();
+
+        std::string path = ascPath;
+        this->path = path;
+        this->file_name = this->getFileName(path);
+        this->dim = this->getPontCloudDim(*pc);
+        this->size = this->getPointCloudSize(pc);
         return pc;
     }
     catch (const char *exception){
@@ -62,4 +81,26 @@ PointCloudT::Ptr OrezIO::ascToPCD(const std::string ascPath){
             return nullptr;
     }
 
+}
+
+
+std::string OrezIO::getFileName(std::string path){
+    QString p = QString::fromStdString(path);
+    QFileInfo fileinfo(p);
+    return  fileinfo.fileName().toStdString();
+}
+
+template <class T>
+size_t OrezIO::getPointCloudSize(const T t){
+    if(t)
+        return t->points.size();
+    else{
+        std::cout<<"点云不存在"<<std::endl;
+        return 0;
+    }
+}
+template<class T>
+std::string OrezIO::getPontCloudDim(const T t){
+     std::string str =  pcl::getFieldsList(t);
+     return str;
 }
