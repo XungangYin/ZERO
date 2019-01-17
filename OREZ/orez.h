@@ -7,6 +7,7 @@
 #include <QDockWidget>
 #include <QMessageBox>
 #include <QString>
+#include <QCheckBox>
 
 //othres
 #include "../OREZ_IO/orezio.h"

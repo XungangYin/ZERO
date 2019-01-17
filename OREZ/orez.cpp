@@ -66,7 +66,27 @@ void OREZ::on_action_triggered()
             info.size = this->orezIO->size;
             info.dim = this->orezIO->dim;
             v_PCI.push_back(info);
-            cout<<info.file_name<<endl;
+           // cout<<info.file_name<<endl;
+
+//            QTreeWidgetItem *item_1 = new QTreeWidgetItem( ui->pointCloudTree);
+//            //item_1->setText(0,QString::fromStdString(info.file_name));
+//            QCheckBox *worldElevation = new QCheckBox(this);
+//            worldElevation->setText(QString::fromStdString(info.file_name));
+//            worldElevation->setCheckState(Qt::Checked);
+//            ui->pointCloudTree->setItemWidget(item_1, 0, worldElevation);
+
+
+            QTreeWidgetItem *w = new QTreeWidgetItem(ui->pointCloudTree);
+            w->setText(0,QString::fromStdString(info.file_name));
+            w->setCheckState(0, Qt::Checked);
+
+            QTreeWidgetItem *g = new QTreeWidgetItem(w);
+            QCheckBox *pCheckBoxWorldImage = new QCheckBox(this);
+            pCheckBoxWorldImage->setText(QString::fromLocal8Bit("显隐"));
+            pCheckBoxWorldImage->setCheckState(Qt::Checked);
+              // 连接信号槽
+            ui->pointCloudTree->setItemWidget(g, 0, pCheckBoxWorldImage);
+
             viewer->addPointCloud(pc);
             viewer->resetCamera();
             ui->qvtkwidget->update();
@@ -75,42 +95,9 @@ void OREZ::on_action_triggered()
     }else{                         //多个点云合并显示
 
     }
-    //updateMessage();
-/*
-    for(size_t i = 0; i< files.size();i++){
-        std_path = files[i].toStdString();
-        // 如果endsWith第二个参数是默认的Qt::CaseSensitive，则区分大小写，否则Qt::CaseInsensitive不区分
-        if(files[i].endsWith(".pcd",Qt::CaseInsensitive)){
-               addPCDFileView(std_path);
-        }
 
-        if(files[i].endsWith(".asc",Qt::CaseInsensitive)){
-           OREZ_io a;
-           if( viewer->removeAllPointClouds()){   //检测viewer中是否还有其他点
-               viewer->addPointCloud(a.ascToPCD(std_path),"a");
-               viewer->resetCamera();
-               ui->qvtkwidget->update();
-           }else{
-               viewer->updatePointCloud(a.ascToPCD(std_path));
-               viewer->resetCamera();
-               ui->qvtkwidget->update();
-           }
-        }
-    }
-*/
+    QTreeWidgetItem *item_1 = new QTreeWidgetItem();
 
-    /**判断输入文件的类型
-     * @brief ch 判断字符（输入文件的最后一个字符）
-     *ch == k:添加vtk文件，ch==d,添加pcd文件，以此类推
-
-    char ch;
-    ch = std_path[std_path.length()-1];
-    if(ch =='D' || ch == 'd'){
-        addPCDFileView(std_path);
-    }else if(ch == 'k' || ch=='K'){
-        //添加显示VTK文件的函数
-    }
- */
 }
 
 bool OREZ::addPCDFileView(const string &path){
@@ -186,7 +173,7 @@ void OREZ::updateMessage(QString info){
 
 void OREZ::initDocketWidget(){
     ui->LayerDialog->setFeatures(QDockWidget::AllDockWidgetFeatures);
-    ui->pointCloudTree->setHeaderLabel("Point Tree");
+    ui->pointCloudTree->setHeaderLabel("PC Tree");
     ui->LayerDialog->setWidget(ui->pointCloudTree);   // 只有这样,treewidget才随Docketwidget移动
     QAction *action = ui->LayerDialog->toggleViewAction();
     ui->mainToolBar->addAction(action);
