@@ -8,6 +8,8 @@
 #include <QMessageBox>
 #include <QString>
 #include <QCheckBox>
+#include <QTextEdit>
+#include <QLineEdit>
 
 //othres
 #include "../OREZ_IO/orezio.h"

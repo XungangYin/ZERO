@@ -18,7 +18,7 @@ OREZ::OREZ(QWidget *parent) :
 
     //设置QVTK
     viewer.reset(new pcl::visualization::PCLVisualizer("viewer",false));
-    viewer->addPointCloud(orezIO->loadPCDRGB("../../data/pcl_logo.pcd"),"cloud");
+    viewer->addPointCloud(orezIO->loadPCDRGB("../../data/pcl_logo.pcd"),"pcl_logo");
     viewer->resetCamera();
 
     ui->qvtkwidget->SetRenderWindow(viewer->getRenderWindow());
@@ -66,26 +66,31 @@ void OREZ::on_action_triggered()
             info.size = this->orezIO->size;
             info.dim = this->orezIO->dim;
             v_PCI.push_back(info);
-           // cout<<info.file_name<<endl;
 
-//            QTreeWidgetItem *item_1 = new QTreeWidgetItem( ui->pointCloudTree);
-//            //item_1->setText(0,QString::fromStdString(info.file_name));
-//            QCheckBox *worldElevation = new QCheckBox(this);
-//            worldElevation->setText(QString::fromStdString(info.file_name));
-//            worldElevation->setCheckState(Qt::Checked);
-//            ui->pointCloudTree->setItemWidget(item_1, 0, worldElevation);
+            QTreeWidgetItem *title = new QTreeWidgetItem(ui->pointCloudTree);
+            title->setText(0,QString::fromStdString(info.file_name));
+            title->setCheckState(0, Qt::Checked);
 
+            QTreeWidgetItem *g = new QTreeWidgetItem(title);
+            //QCheckBox *pCheckBoxWorldImage = new QCheckBox(this);
+           // pCheckBoxWorldImage->setText(QString::fromLocal8Bit("显隐"));
+          //  pCheckBoxWorldImage->setCheckState(Qt::Checked);
+         //   ui->pointCloudTree->setItemWidget(g, 0, pCheckBoxWorldImage);
+//           QLineEdit *line = new QLineEdit(this);
+//           line->setText("test");
 
-            QTreeWidgetItem *w = new QTreeWidgetItem(ui->pointCloudTree);
-            w->setText(0,QString::fromStdString(info.file_name));
-            w->setCheckState(0, Qt::Checked);
+            //------------------TextEdit------------------
+               QTextEdit *textEdit = new QTextEdit(this);
+               textEdit->setFixedHeight(50);
+               QString dim  = QString::fromStdString(info.dim);
+               std::string size = std::to_string(info.size); //将size_t转为字符串
+               QString qsize = QString::fromStdString(size);
+               textEdit->setText("Vertices  :  "+qsize);
+               textEdit->append( "Dimension :  "+dim);
+               textEdit->setReadOnly(true);
+               textEdit->setStyleSheet("background:transparent;border-width:0;border-style:outset");//通过css设置为无边框
 
-            QTreeWidgetItem *g = new QTreeWidgetItem(w);
-            QCheckBox *pCheckBoxWorldImage = new QCheckBox(this);
-            pCheckBoxWorldImage->setText(QString::fromLocal8Bit("显隐"));
-            pCheckBoxWorldImage->setCheckState(Qt::Checked);
-              // 连接信号槽
-            ui->pointCloudTree->setItemWidget(g, 0, pCheckBoxWorldImage);
+           ui->pointCloudTree->setItemWidget(g,0,textEdit);
 
             viewer->addPointCloud(pc);
             viewer->resetCamera();
