@@ -8,6 +8,9 @@
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
 #include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/common/common_headers.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/features/normal_3d_omp.h>
 #include <pcl/PCLHeader.h>
 //vtk
 #include <vtkRenderWindow.h>

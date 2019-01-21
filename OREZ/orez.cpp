@@ -52,8 +52,7 @@ void OREZ::on_action_triggered()
 
     std::string std_path;
     if(files.size() ==1){           //单个点云
-        viewer->removeAllPointClouds();
-       // file_name.push_back(getFileName(files[0]));
+        viewer->removePointCloud("pcl_logo");
         std_path = files[0].toStdString();
         if(files[0].endsWith(".pcd",Qt::CaseInsensitive)){
              addPCDFileView(std_path);
@@ -66,33 +65,8 @@ void OREZ::on_action_triggered()
             info.size = this->orezIO->size;
             info.dim = this->orezIO->dim;
             v_PCI.push_back(info);
-
-            QTreeWidgetItem *title = new QTreeWidgetItem(ui->pointCloudTree);
-            title->setText(0,QString::fromStdString(info.file_name));
-            title->setCheckState(0, Qt::Checked);
-
-            QTreeWidgetItem *g = new QTreeWidgetItem(title);
-            //QCheckBox *pCheckBoxWorldImage = new QCheckBox(this);
-           // pCheckBoxWorldImage->setText(QString::fromLocal8Bit("显隐"));
-          //  pCheckBoxWorldImage->setCheckState(Qt::Checked);
-         //   ui->pointCloudTree->setItemWidget(g, 0, pCheckBoxWorldImage);
-//           QLineEdit *line = new QLineEdit(this);
-//           line->setText("test");
-
-            //------------------TextEdit------------------
-               QTextEdit *textEdit = new QTextEdit(this);
-               textEdit->setFixedHeight(50);
-               QString dim  = QString::fromStdString(info.dim);
-               std::string size = std::to_string(info.size); //将size_t转为字符串
-               QString qsize = QString::fromStdString(size);
-               textEdit->setText("Vertices  :  "+qsize);
-               textEdit->append( "Dimension :  "+dim);
-               textEdit->setReadOnly(true);
-               textEdit->setStyleSheet("background:transparent;border-width:0;border-style:outset");//通过css设置为无边框
-
-           ui->pointCloudTree->setItemWidget(g,0,textEdit);
-
-            viewer->addPointCloud(pc);
+            creatTreeWidgetItem(info);
+            viewer->addPointCloud(pc,orezIO->file_name);
             viewer->resetCamera();
             ui->qvtkwidget->update();
         }
@@ -101,7 +75,7 @@ void OREZ::on_action_triggered()
 
     }
 
-    QTreeWidgetItem *item_1 = new QTreeWidgetItem();
+ //   QTreeWidgetItem *item_1 = new QTreeWidgetItem();
 
 }
 
@@ -127,7 +101,7 @@ bool OREZ::addPCDFileView(const string &path){
     for(unsigned int i = 5; i<15;++i){    //判断是否 r字符，只判断后几个字符即可
         if(tmp[i] == 'r'){
             PointCloudTRGB::Ptr pc = orezIO->loadPCDRGB(path);
-            viewer->addPointCloud(pc);
+            viewer->addPointCloud(pc,orezIO->file_name);
             PointCloudInfo<PointCloudTRGB::Ptr> info;
             info.p = pc;
             info.path = path;
@@ -136,12 +110,15 @@ bool OREZ::addPCDFileView(const string &path){
             info.dim = this->orezIO->dim;
             cout<<info.file_name<<endl;
             v_PCRGBI.push_back(info);
+
+            creatTreeWidgetItem(info);
+
             status = true;
             break;
         }else{
             if(i==14){                    //若没有r，则用普通方式读取
                PointCloudT::Ptr pc = orezIO->loadPCD(path);
-               viewer->addPointCloud(pc);
+               viewer->addPointCloud(pc,orezIO->file_name);
                PointCloudInfo<PointCloudT::Ptr> info;
                info.p = pc;
                info.path = path;
@@ -149,7 +126,8 @@ bool OREZ::addPCDFileView(const string &path){
                info.size = this->orezIO->size;
                info.dim = this->orezIO->dim;
                v_PCI.push_back(info);
-               cout<<info.file_name<<endl;
+
+               creatTreeWidgetItem(info);
                status = true;
                 break;
             }
@@ -168,8 +146,17 @@ void OREZ::on_action_5_triggered()
 {
     viewer->removeAllPointClouds();
     ui->qvtkwidget->update();
-    v_PointCloud.clear();
-    v_PointCloudRGB.clear();
+
+    v_PCI.clear();
+    v_PCRGBI.clear();
+
+    QTreeWidgetItemIterator it(ui->pointCloudTree);
+    /* while (*it) {
+             //do something like
+            cout<<(*it)->text(0).toStdString()<<endl;
+            it++;
+        } */
+
 }
 
 void OREZ::updateMessage(QString info){
@@ -185,11 +172,6 @@ void OREZ::initDocketWidget(){
 }
 
 
-//std::string OREZ::getFileName(std::string path){
-//    QString p = QString::fromStdString(path);
-//    QFileInfo fileinfo(p);
-//    return  fileinfo.fileName().toStdString();
-//}
 template <class T>
 size_t OREZ::getPointCloudSize(const T t){
     if(t)
@@ -204,4 +186,64 @@ template<class T>
 std::string OREZ::getPontCloudDim(const T t){
      std::string str =  pcl::getFieldsList(t);
      return str;
+}
+
+template <class T>
+bool OREZ::creatTreeWidgetItem(T info){
+   if(info.p = nullptr)
+       return false;
+   else{
+        QTreeWidgetItem *title = new QTreeWidgetItem(ui->pointCloudTree);
+        title->setText(0,QString::fromStdString(info.file_name));
+        title->setCheckState(0, Qt::Checked);
+        //检测节点的状态改变 .信号槽函数不能带参数
+        connect(ui->pointCloudTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(widgetChange(QTreeWidgetItem *)));
+      //  connect(ui->pointCloudTree,SIGNAL(itemChanged(QTreeWidgetItem*,int)),this,SLOT(widgetChange(QTreeWidgetItem *)));
+
+        QTreeWidgetItem *g = new QTreeWidgetItem(title);
+        //------------------TextEdit------------------
+        QTextEdit *textEdit = new QTextEdit(this);
+        textEdit->setFixedHeight(50);
+        QString dim  = QString::fromStdString(info.dim);
+        std::string size = std::to_string(info.size); //将size_t转为字符串
+        QString qsize = QString::fromStdString(size);
+        textEdit->setText("Vertices  :  "+qsize);
+        textEdit->append( "Dimension :  "+dim);
+        textEdit->setReadOnly(true);
+        textEdit->setStyleSheet("background:transparent;border-width:0;border-style:outset");//通过css设置为无边框
+        ui->pointCloudTree->setItemWidget(g,0,textEdit);
+        return true;
+   }
+}
+void OREZ::widgetChange(QTreeWidgetItem * state){
+   QString qstr = state->text(0);  //获取当前点击的item的text作为电晕id
+   std::string str  = qstr.toStdString();
+    if(state->checkState(0) == Qt::Checked){
+        std::vector<PointCloudInfo<PointCloudT::Ptr>>::iterator it = v_PCI.begin();
+        for(it;it != v_PCI.end();it++){
+            if(str == it->file_name){
+                this->viewer->addPointCloud(it->p,str);
+                break;
+            }
+        }
+        std::vector<PointCloudInfo<PointCloudTRGB::Ptr>>::iterator it_rgb = v_PCRGBI.begin();
+        for(it_rgb;it_rgb != v_PCRGBI.end();it_rgb++){
+            if(str == it_rgb->file_name){
+                this->viewer->addPointCloud(it_rgb->p,str);
+                break;
+            }
+        }
+        ui->qvtkwidget->update();
+    }
+    else{
+
+        this->viewer->removePointCloud(str);
+        ui->qvtkwidget->update();
+    }
+}
+
+//法向估计
+void OREZ::on_normal_action_19_triggered()
+{
+
 }

@@ -34,7 +34,6 @@ public:
     QAction *action_3;
     QAction *action_4;
     QAction *action_5;
-    QAction *action_6;
     QAction *action_8;
     QAction *action_9;
     QAction *action_10;
@@ -54,6 +53,7 @@ public:
     QAction *action_17;
     QAction *action_7;
     QAction *action_18;
+    QAction *normal_action_19;
     QWidget *centralWidget;
     QVTKWidget *qvtkwidget;
     QMenuBar *menuBar;
@@ -61,6 +61,7 @@ public:
     QMenu *menu_2;
     QMenu *menu_3;
     QMenu *menu_6;
+    QMenu *menu_8;
     QMenu *menu_4;
     QMenu *menu_5;
     QMenu *menu_7;
@@ -85,8 +86,6 @@ public:
         action_4->setObjectName(QStringLiteral("action_4"));
         action_5 = new QAction(OREZ);
         action_5->setObjectName(QStringLiteral("action_5"));
-        action_6 = new QAction(OREZ);
-        action_6->setObjectName(QStringLiteral("action_6"));
         action_8 = new QAction(OREZ);
         action_8->setObjectName(QStringLiteral("action_8"));
         action_9 = new QAction(OREZ);
@@ -125,6 +124,8 @@ public:
         action_7->setObjectName(QStringLiteral("action_7"));
         action_18 = new QAction(OREZ);
         action_18->setObjectName(QStringLiteral("action_18"));
+        normal_action_19 = new QAction(OREZ);
+        normal_action_19->setObjectName(QStringLiteral("normal_action_19"));
         centralWidget = new QWidget(OREZ);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkwidget = new QVTKWidget(centralWidget);
@@ -142,6 +143,8 @@ public:
         menu_3->setObjectName(QStringLiteral("menu_3"));
         menu_6 = new QMenu(menu_3);
         menu_6->setObjectName(QStringLiteral("menu_6"));
+        menu_8 = new QMenu(menu_3);
+        menu_8->setObjectName(QStringLiteral("menu_8"));
         menu_4 = new QMenu(menuBar);
         menu_4->setObjectName(QStringLiteral("menu_4"));
         menu_5 = new QMenu(menuBar);
@@ -188,7 +191,7 @@ public:
         menu_2->addAction(action_13);
         menu_2->addAction(action_14);
         menu_2->addAction(action_15);
-        menu_3->addAction(action_6);
+        menu_3->addAction(menu_8->menuAction());
         menu_3->addAction(menu_6->menuAction());
         menu_3->addAction(action_8);
         menu_3->addAction(action_9);
@@ -201,6 +204,7 @@ public:
         menu_6->addAction(actionFPFH);
         menu_6->addAction(actionICP);
         menu_6->addAction(actionSAC_IA);
+        menu_8->addAction(normal_action_19);
         menu_5->addAction(action_4);
         menu_7->addAction(action_16);
         menu_7->addAction(action_17);
@@ -220,7 +224,6 @@ public:
         action_3->setText(QApplication::translate("OREZ", "\351\200\200\345\207\272", nullptr));
         action_4->setText(QApplication::translate("OREZ", "\344\275\277\347\224\250\350\257\264\346\230\216", nullptr));
         action_5->setText(QApplication::translate("OREZ", "\351\207\215\347\275\256", nullptr));
-        action_6->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221", nullptr));
         action_8->setText(QApplication::translate("OREZ", "\351\207\215\345\273\272", nullptr));
         action_9->setText(QApplication::translate("OREZ", "\345\255\224\346\264\236\344\277\256\350\241\245", nullptr));
         action_10->setText(QApplication::translate("OREZ", "\350\276\271\347\225\214\350\257\206\345\210\253", nullptr));
@@ -240,10 +243,12 @@ public:
         action_17->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\347\262\276\347\256\200", nullptr));
         action_7->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\345\210\206\345\211\262", nullptr));
         action_18->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\346\273\244\346\263\242", nullptr));
+        normal_action_19->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241", nullptr));
         menu->setTitle(QApplication::translate("OREZ", "\346\226\207\344\273\266", nullptr));
         menu_2->setTitle(QApplication::translate("OREZ", "\346\270\262\346\237\223\346\230\276\347\244\272", nullptr));
         menu_3->setTitle(QApplication::translate("OREZ", "\350\256\241\347\256\227\345\267\245\345\205\267", nullptr));
         menu_6->setTitle(QApplication::translate("OREZ", "\351\205\215\345\207\206", nullptr));
+        menu_8->setTitle(QApplication::translate("OREZ", "\346\263\225\345\220\221", nullptr));
         menu_4->setTitle(QApplication::translate("OREZ", "\347\252\227\345\217\243", nullptr));
         menu_5->setTitle(QApplication::translate("OREZ", "\345\270\256\345\212\251", nullptr));
         menu_7->setTitle(QApplication::translate("OREZ", "\347\274\226\350\276\221", nullptr));

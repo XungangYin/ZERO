@@ -65,7 +65,13 @@
      <addaction name="actionICP"/>
      <addaction name="actionSAC_IA"/>
     </widget>
-    <addaction name="action_6"/>
+    <widget class="QMenu" name="menu_8">
+     <property name="title">
+      <string>法向</string>
+     </property>
+     <addaction name="normal_action_19"/>
+    </widget>
+    <addaction name="menu_8"/>
     <addaction name="menu_6"/>
     <addaction name="action_8"/>
     <addaction name="action_9"/>
@@ -173,11 +179,6 @@
     <string>重置</string>
    </property>
   </action>
-  <action name="action_6">
-   <property name="text">
-    <string>法向</string>
-   </property>
-  </action>
   <action name="action_8">
    <property name="text">
     <string>重建</string>
@@ -271,6 +272,11 @@
   <action name="action_18">
    <property name="text">
     <string>点云滤波</string>
+   </property>
+  </action>
+  <action name="normal_action_19">
+   <property name="text">
+    <string>法向估计</string>
    </property>
   </action>
  </widget>

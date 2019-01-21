@@ -10,6 +10,7 @@
 #include <QCheckBox>
 #include <QTextEdit>
 #include <QLineEdit>
+#include <QTreeWidgetItem>
 
 //othres
 #include "../OREZ_IO/orezio.h"
@@ -56,6 +57,8 @@ private slots:
 
     void on_action_5_triggered();    //重置视口
 
+    void on_normal_action_19_triggered();
+
 public:
     bool addPCDFileView(const string &path);
 
@@ -68,15 +71,18 @@ public:
     template<class T>
     std::string getPontCloudDim(const T t); //获取点云的维度信息
 
+    template <class T>
+    bool  creatTreeWidgetItem(T t);
+
+public slots:
+    void widgetChange(QTreeWidgetItem * state);
+
+
 private:
     //构造默认的显示点云
     PointCloudTRGB::Ptr cloud;
     //IO模块
     OrezIO *orezIO;
-    //保存加载进来的数据指针
-    vector<PointCloudT::Ptr> v_PointCloud;
-    vector<PointCloudTRGB::Ptr> v_PointCloudRGB;
-
     //保存点云基础信息数组
     std::vector<PointCloudInfo<PointCloudT::Ptr>> v_PCI;
     std::vector<PointCloudInfo<PointCloudTRGB::Ptr>> v_PCRGBI;

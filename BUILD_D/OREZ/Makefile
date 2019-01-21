@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../OREZ -I. -isystem /usr/include/eigen3 -isystem /usr/include/vtk-6.2 -isystem /usr/include/boost -isystem /usr/local/include/pcl-1.8 -I../../OREZ_IO -I../../OREZ_IO -I../../../../Qt5.10.0/5.10.0/gcc_64/include -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../OREZ -I. -isystem /usr/include/eigen3 -isystem /usr/include/vtk-6.2 -isystem /usr/include/boost -isystem /usr/local/include/pcl-1.8 -I../../OREZ_IO -I../../Common -I../../../../Qt5.10.0/5.10.0/gcc_64/include -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = OREZ1.0.0
 DISTDIR = /home/yxg/PCL/ZERO/BUILD_D/OREZ/.tmp/OREZ1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../Common/ -lCommon -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -734,6 +734,37 @@ moc_orez.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMessageBox \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QCheckBox \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTreeWidgetItem \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreeview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
@@ -742,7 +773,7 @@ moc_orez.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../OREZ/orez.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -986,6 +1017,37 @@ main.o: ../../OREZ/main.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMessageBox \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QCheckBox \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTreeWidgetItem \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreeview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
@@ -1117,12 +1179,68 @@ orez.o: ../../OREZ/orez.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMessageBox \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QString \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QCheckBox \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextdocument.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTreeWidgetItem \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreeview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
-		ui_orez.h
+		ui_orez.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QVariant \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qeventloop.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qguiapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QButtonGroup \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QHeaderView \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMenu \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qmenu.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMenuBar \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QStatusBar \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstatusbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QToolBar \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtoolbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QTreeWidget \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o orez.o ../../OREZ/orez.cpp
 
 moc_orez.o: moc_orez.cpp 

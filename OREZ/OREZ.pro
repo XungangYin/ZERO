@@ -43,9 +43,9 @@ else:unix: LIBS += -L$$OUT_PWD/../OREZ_IO/ -lOREZ_IO
 INCLUDEPATH += $$PWD/../OREZ_IO
 DEPENDPATH += $$PWD/../OREZ_IO
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../OREZ_IO/release/ -lOREZ_IO
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../OREZ_IO/debug/ -lOREZ_IO
-else:unix: LIBS += -L$$OUT_PWD/../OREZ_IO/ -lOREZ_IO
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Common/release/ -lCommon
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Common/debug/ -lCommon
+else:unix: LIBS += -L$$OUT_PWD/../Common/ -lCommon
 
-INCLUDEPATH += $$PWD/../OREZ_IO
-DEPENDPATH += $$PWD/../OREZ_IO
+INCLUDEPATH += $$PWD/../Common
+DEPENDPATH += $$PWD/../Common
