@@ -23,3 +23,4 @@ typedef pcl::PointXYZRGB PointTRGB;
 typedef pcl::PointCloud<PointT> PointCloudT;
 typedef pcl::PointCloud<PointTRGB> PointCloudTRGB;
 
+typedef pcl::PointNormal PointNormal;

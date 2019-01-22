@@ -656,7 +656,46 @@ common.o: ../../Common/common.cpp ../../Common/common.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qglobalstatic.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qmutex.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qnumeric.h \
-		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qversiontagging.h
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qversiontagging.h \
+		../../common.h \
+		../../OREZ_IO/orezio.h \
+		../../OREZ_IO/orez_io_global.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFile \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfile.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfiledevice.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qiodevice.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregexp.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QFileInfo \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfileinfo.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qhash.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o common.o ../../Common/common.cpp
 
 ####### Install

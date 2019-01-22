@@ -25,13 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        orez.cpp
+        orez.cpp \
+    normalestdialog.cpp
 
 HEADERS += \
-        orez.h
+        orez.h \
+    normalestdialog.h
 
 FORMS += \
-        orez.ui
+        orez.ui \
+    normalestdialog.ui
 
 DISTFILES += \
     ../OREZ.pri
@@ -49,3 +52,5 @@ else:unix: LIBS += -L$$OUT_PWD/../Common/ -lCommon
 
 INCLUDEPATH += $$PWD/../Common
 DEPENDPATH += $$PWD/../Common
+
+RESOURCES +=

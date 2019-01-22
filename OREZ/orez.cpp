@@ -10,6 +10,8 @@ OREZ::OREZ(QWidget *parent) :
     this->setFixedSize(1200,900);
     //初化输入模块
     orezIO =  new OrezIO;
+    common = new Common;
+
     //设置默认点云
     initDocketWidget();
 
@@ -32,6 +34,7 @@ OREZ::~OREZ()
 {
     delete ui;
     delete orezIO;
+    delete common;
 }
 
 //关闭
@@ -150,13 +153,15 @@ void OREZ::on_action_5_triggered()
     v_PCI.clear();
     v_PCRGBI.clear();
 
-    QTreeWidgetItemIterator it(ui->pointCloudTree);
-    /* while (*it) {
+    ui->pointCloudTree->clear();
+
+   /* QTreeWidgetItemIterator it(ui->pointCloudTree);
+
+     while (*it) {
              //do something like
             cout<<(*it)->text(0).toStdString()<<endl;
             it++;
         } */
-
 }
 
 void OREZ::updateMessage(QString info){
@@ -216,20 +221,20 @@ bool OREZ::creatTreeWidgetItem(T info){
    }
 }
 void OREZ::widgetChange(QTreeWidgetItem * state){
-   QString qstr = state->text(0);  //获取当前点击的item的text作为电晕id
-   std::string str  = qstr.toStdString();
+   QString qstr = state->text(0);  //获取当前点击的item的text作为点云id
+   current_id = qstr.toStdString();
     if(state->checkState(0) == Qt::Checked){
         std::vector<PointCloudInfo<PointCloudT::Ptr>>::iterator it = v_PCI.begin();
         for(it;it != v_PCI.end();it++){
-            if(str == it->file_name){
-                this->viewer->addPointCloud(it->p,str);
+            if(current_id == it->file_name){
+                this->viewer->addPointCloud(it->p,current_id);
                 break;
             }
         }
         std::vector<PointCloudInfo<PointCloudTRGB::Ptr>>::iterator it_rgb = v_PCRGBI.begin();
         for(it_rgb;it_rgb != v_PCRGBI.end();it_rgb++){
-            if(str == it_rgb->file_name){
-                this->viewer->addPointCloud(it_rgb->p,str);
+            if(current_id == it_rgb->file_name){
+                this->viewer->addPointCloud(it_rgb->p,current_id);
                 break;
             }
         }
@@ -237,13 +242,33 @@ void OREZ::widgetChange(QTreeWidgetItem * state){
     }
     else{
 
-        this->viewer->removePointCloud(str);
+        this->viewer->removePointCloud(current_id);
         ui->qvtkwidget->update();
     }
 }
 
-//法向估计
+//计算当前选中的item点云的法向量
 void OREZ::on_normal_action_19_triggered()
 {
+    //打开法向估计的对话框,获取k值,然后计算法向量
+    NormalEstDialog *dia = new NormalEstDialog;
+    dia->exec();
+
+    std::vector<PointCloudInfo<PointCloudT::Ptr>>::iterator it = v_PCI.begin();
+    for(it;it != v_PCI.end();it++){
+         if(current_id == it->file_name){
+                pcl::PointCloud<pcl::Normal>::Ptr p=common->NormalEstimation(it->p,8);
+                cout<<p->size()<<endl;
+                break;
+            }
+        }
+    std::vector<PointCloudInfo<PointCloudTRGB::Ptr>>::iterator it_rgb = v_PCRGBI.begin();
+    for(it_rgb;it_rgb != v_PCRGBI.end();it_rgb++){
+        if(current_id == it_rgb->file_name){
+                pcl::PointCloud<pcl::Normal>::Ptr p=common->NormalEstimation(it_rgb->p,8);
+                cout<<p->size()<<endl;
+                break;
+            }
+        }
 
 }

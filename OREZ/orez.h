@@ -15,6 +15,8 @@
 //othres
 #include "../OREZ_IO/orezio.h"
 #include "../common.h"
+#include "../Common/common.h"
+#include "normalestdialog.h"
 
 
 using namespace  std;
@@ -74,6 +76,9 @@ public:
     template <class T>
     bool  creatTreeWidgetItem(T t);
 
+    //获取current_id所对应的PCinfor
+
+
 public slots:
     void widgetChange(QTreeWidgetItem * state);
 
@@ -83,10 +88,15 @@ private:
     PointCloudTRGB::Ptr cloud;
     //IO模块
     OrezIO *orezIO;
+    //common模块
+    Common *common;
     //保存点云基础信息数组
     std::vector<PointCloudInfo<PointCloudT::Ptr>> v_PCI;
     std::vector<PointCloudInfo<PointCloudTRGB::Ptr>> v_PCRGBI;
     void initDocketWidget();
+
+    //存贮treewidget中当前选中点云的唯一id
+    std::string current_id;
 };
 
 
