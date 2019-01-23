@@ -25,9 +25,9 @@ class Ui_NormalEstDialog
 {
 public:
     QDialogButtonBox *buttonBox;
-    QLineEdit *lineEdit;
     QLabel *label;
     QLabel *label_2;
+    QLineEdit *lineEdit;
 
     void setupUi(QDialog *NormalEstDialog)
     {
@@ -39,15 +39,15 @@ public:
         buttonBox->setGeometry(QRect(30, 240, 341, 32));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        lineEdit = new QLineEdit(NormalEstDialog);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(160, 150, 113, 25));
         label = new QLabel(NormalEstDialog);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(30, 110, 111, 20));
+        label->setGeometry(QRect(30, 110, 301, 20));
         label_2 = new QLabel(NormalEstDialog);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(30, 150, 131, 20));
+        lineEdit = new QLineEdit(NormalEstDialog);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setGeometry(QRect(160, 150, 113, 25));
 
         retranslateUi(NormalEstDialog);
         QObject::connect(buttonBox, SIGNAL(accepted()), NormalEstDialog, SLOT(accept()));
@@ -59,8 +59,7 @@ public:
     void retranslateUi(QDialog *NormalEstDialog)
     {
         NormalEstDialog->setWindowTitle(QApplication::translate("NormalEstDialog", "Dialog", nullptr));
-        lineEdit->setText(QApplication::translate("NormalEstDialog", "NormalEST", nullptr));
-        label->setText(QApplication::translate("NormalEstDialog", "\350\257\267\350\276\223\345\205\245\346\255\243\346\225\264\346\225\260:", nullptr));
+        label->setText(QApplication::translate("NormalEstDialog", "\350\257\267\350\276\223\345\205\245\346\255\243\346\225\264\346\225\260(\345\273\272\350\256\256\345\217\226\345\200\274\350\214\203\345\233\264[8-25]\344\271\213\351\227\264):", nullptr));
         label_2->setText(QApplication::translate("NormalEstDialog", "Neighbor Number:", nullptr));
     } // retranslateUi
 

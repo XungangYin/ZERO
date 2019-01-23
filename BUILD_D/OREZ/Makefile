@@ -1479,7 +1479,49 @@ normalestdialog.o: ../../OREZ/normalestdialog.cpp ../../OREZ/normalestdialog.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_normalestdialog.h
+		ui_normalestdialog.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QVariant \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qeventloop.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qguiapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QButtonGroup \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QHeaderView \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextoption.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o normalestdialog.o ../../OREZ/normalestdialog.cpp
 
 moc_orez.o: moc_orez.cpp 

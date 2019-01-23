@@ -18,7 +18,6 @@ public:
 
 private:
     Ui::NormalEstDialog *ui;
-    unsigned k;
 };
 
 #endif // NORMALESTDIALOG_H

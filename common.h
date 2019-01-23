@@ -24,3 +24,5 @@ typedef pcl::PointCloud<PointT> PointCloudT;
 typedef pcl::PointCloud<PointTRGB> PointCloudTRGB;
 
 typedef pcl::PointNormal PointNormal;
+typedef pcl::PointCloud<pcl::Normal> PointCloudNormal;
+typedef pcl::PointCloud<PointNormal> PointCloudWithNormal;

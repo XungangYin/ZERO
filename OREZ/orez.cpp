@@ -223,26 +223,19 @@ bool OREZ::creatTreeWidgetItem(T info){
 void OREZ::widgetChange(QTreeWidgetItem * state){
    QString qstr = state->text(0);  //获取当前点击的item的text作为点云id
    current_id = qstr.toStdString();
-    if(state->checkState(0) == Qt::Checked){
-        std::vector<PointCloudInfo<PointCloudT::Ptr>>::iterator it = v_PCI.begin();
-        for(it;it != v_PCI.end();it++){
-            if(current_id == it->file_name){
-                this->viewer->addPointCloud(it->p,current_id);
-                break;
-            }
-        }
-        std::vector<PointCloudInfo<PointCloudTRGB::Ptr>>::iterator it_rgb = v_PCRGBI.begin();
-        for(it_rgb;it_rgb != v_PCRGBI.end();it_rgb++){
-            if(current_id == it_rgb->file_name){
-                this->viewer->addPointCloud(it_rgb->p,current_id);
-                break;
-            }
-        }
+   if(state->checkState(0) == Qt::Checked){
+         PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);  //先计算xyz格式的
+         if(a.p != nullptr){
+              this->viewer->addPointCloud(a.p,current_id);
+         }else{
+              PointCloudInfo<PointCloudTRGB::Ptr> b = this->getPCRGBInfo(current_id);
+              this->viewer->addPointCloud(b.p,current_id);
+         }
         ui->qvtkwidget->update();
     }
     else{
-
         this->viewer->removePointCloud(current_id);
+        this->viewer->removePointCloud(current_id+"0");//一起删除对应的法向
         ui->qvtkwidget->update();
     }
 }
@@ -251,24 +244,75 @@ void OREZ::widgetChange(QTreeWidgetItem * state){
 void OREZ::on_normal_action_19_triggered()
 {
     //打开法向估计的对话框,获取k值,然后计算法向量
-    NormalEstDialog *dia = new NormalEstDialog;
-    dia->exec();
+    NormalEstDialog *normalDia = new NormalEstDialog;
+    normalDia->exec();
+    int k = normalDia->getValue();
+    PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);
+    if(a.p != nullptr){
+         point_cloud_normal = common->normalEstimation(a.p,k);
+         normal_state = true;
+         // cout<<"我不带RGB信息"<<endl;
+    }else{
+        PointCloudInfo<PointCloudTRGB::Ptr> b = this->getPCRGBInfo(current_id);
+        point_cloud_normal = common->normalEstimation(b.p,k);
+        // cout<<"我是RGB法向量"<<endl;
+        normal_state = true;
+    }
+}
 
+
+PointCloudInfo<PointCloudT::Ptr> OREZ::getPCInfo(const string current_id){
     std::vector<PointCloudInfo<PointCloudT::Ptr>>::iterator it = v_PCI.begin();
     for(it;it != v_PCI.end();it++){
          if(current_id == it->file_name){
-                pcl::PointCloud<pcl::Normal>::Ptr p=common->NormalEstimation(it->p,8);
-                cout<<p->size()<<endl;
-                break;
+                return *it;
             }
         }
+    PointCloudInfo<PointCloudT::Ptr> flag;
+    return flag;
+}
+PointCloudInfo<PointCloudTRGB::Ptr> OREZ::getPCRGBInfo(const string current_id){
     std::vector<PointCloudInfo<PointCloudTRGB::Ptr>>::iterator it_rgb = v_PCRGBI.begin();
     for(it_rgb;it_rgb != v_PCRGBI.end();it_rgb++){
         if(current_id == it_rgb->file_name){
-                pcl::PointCloud<pcl::Normal>::Ptr p=common->NormalEstimation(it_rgb->p,8);
-                cout<<p->size()<<endl;
-                break;
+                 return *it_rgb;
             }
         }
+    PointCloudInfo<PointCloudTRGB::Ptr> flag;  //只是作为一个返回标记,并无实际用处
+    return flag;
+}
 
+void OREZ::on_action_12_triggered(bool checked)
+{
+    if(checked == true){
+        if(normal_state){
+            PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
+            if(a.p != nullptr){
+                pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,0,255,0);    //设置点云为绿色
+                this->viewer->updatePointCloud(a.p,v,current_id);
+                double normal_length = common->estimateDistance(a.p);
+                cout<<normal_length<<endl;
+                this->viewer->addPointCloudNormals<PointT,pcl::Normal>(a.p,point_cloud_normal,10,normal_length*5,current_id+"0");
+            }else{
+                PointCloudInfo<PointCloudTRGB::Ptr> b = this->getPCRGBInfo(current_id);
+                //带有RGB信息的点云没有必要重置渲染颜色
+                //pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(b.p,0,255,0);    //设置点云为绿色
+               // this->viewer->updatePointCloud(b.p,v,current_id);
+                double normal_length = common->estimateDistance(b.p);
+                cout<<normal_length<<endl;
+                this->viewer->addPointCloudNormals<PointTRGB,pcl::Normal>(b.p,point_cloud_normal,10,normal_length*5,current_id+"0");
+             }
+            ui->qvtkwidget->update();
+            normal_state = false;
+        }
+        else{
+              normal_state = false;
+             QMessageBox::warning(this,"警告：","请先计算该点云的法向量...");
+        }
+    }
+    else{
+         // QMessageBox::warning(this,"警告：","请先计算...");
+          this->viewer->removePointCloud(current_id+"0");
+          ui->qvtkwidget->update();
+    }
 }

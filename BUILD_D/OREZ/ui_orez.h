@@ -100,6 +100,9 @@ public:
         actionK_Means->setObjectName(QStringLiteral("actionK_Means"));
         action_12 = new QAction(OREZ);
         action_12->setObjectName(QStringLiteral("action_12"));
+        action_12->setCheckable(true);
+        action_12->setChecked(false);
+        action_12->setEnabled(true);
         action_13 = new QAction(OREZ);
         action_13->setObjectName(QStringLiteral("action_13"));
         action_14 = new QAction(OREZ);
@@ -230,7 +233,7 @@ public:
         actionAABB->setText(QApplication::translate("OREZ", "AABB\345\214\205\345\233\264\347\233\222", nullptr));
         action_11->setText(QApplication::translate("OREZ", "\345\214\205\345\233\264\347\220\203", nullptr));
         actionK_Means->setText(QApplication::translate("OREZ", "K-Means", nullptr));
-        action_12->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\351\207\217", nullptr));
+        action_12->setText(QApplication::translate("OREZ", "Show Normal", nullptr));
         action_13->setText(QApplication::translate("OREZ", "\346\233\262\347\216\207", nullptr));
         action_14->setText(QApplication::translate("OREZ", "\345\214\205\345\233\264\347\233\222", nullptr));
         action_15->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\347\235\200\350\211\262", nullptr));

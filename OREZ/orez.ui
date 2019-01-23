@@ -210,8 +210,17 @@
    </property>
   </action>
   <action name="action_12">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="text">
-    <string>法向量</string>
+    <string>Show Normal</string>
    </property>
   </action>
   <action name="action_13">

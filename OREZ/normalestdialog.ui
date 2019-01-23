@@ -29,30 +29,17 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>150</y>
-     <width>113</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>NormalEST</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>30</x>
      <y>110</y>
-     <width>111</width>
+     <width>301</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>请输入正整数:</string>
+    <string>请输入正整数(建议取值范围[8-25]之间):</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -66,6 +53,16 @@
    </property>
    <property name="text">
     <string>Neighbor Number:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>150</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

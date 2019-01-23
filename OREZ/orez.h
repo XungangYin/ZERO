@@ -18,7 +18,7 @@
 #include "../Common/common.h"
 #include "normalestdialog.h"
 
-
+#include <pcl/visualization/point_cloud_color_handlers.h>
 using namespace  std;
 
 ////声明一个结构体模板,保存点云信息
@@ -59,7 +59,9 @@ private slots:
 
     void on_action_5_triggered();    //重置视口
 
-    void on_normal_action_19_triggered();
+    void on_normal_action_19_triggered();  //计算当前选中的item点云的法向量
+
+    void on_action_12_triggered(bool checked); //显示当前选中点云的法向量()
 
 public:
     bool addPCDFileView(const string &path);
@@ -76,7 +78,10 @@ public:
     template <class T>
     bool  creatTreeWidgetItem(T t);
 
-    //获取current_id所对应的PCinfor
+    //根据current_id(string)获取当前那PointCloudInfo
+    PointCloudInfo<PointCloudT::Ptr> getPCInfo(const string current_id);
+    PointCloudInfo<PointCloudTRGB::Ptr> getPCRGBInfo(const string current_id);
+
 
 
 public slots:
@@ -97,6 +102,10 @@ private:
 
     //存贮treewidget中当前选中点云的唯一id
     std::string current_id;
+    //检测是否计算了法向
+    bool normal_state = false;
+    //存储法向量信息
+    PointCloudNormal::Ptr point_cloud_normal;
 };
 
 

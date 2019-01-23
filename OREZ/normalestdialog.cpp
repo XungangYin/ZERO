@@ -8,6 +8,12 @@ NormalEstDialog::NormalEstDialog(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle(u8"法向量计算");
   //  this->setWindowFlags(Qt::FramelessWindowHint);
+
+    //设置默认lineEdit只能输入正整数,范围在1-500之间.建议设置在8-25之间
+    ui->lineEdit->setFixedWidth(50);
+    ui->lineEdit->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    ui->lineEdit->setText("8"); //默认近邻个数
+    ui->lineEdit->setValidator(new QIntValidator(1, 500, ui->lineEdit));
 }
 
 NormalEstDialog::~NormalEstDialog()
@@ -16,6 +22,6 @@ NormalEstDialog::~NormalEstDialog()
 }
 
 int NormalEstDialog::getValue(){
-
-    return k;
+    QString str= ui->lineEdit->text();
+    return str.toInt();
 }
