@@ -7,10 +7,10 @@ Common::Common()
     v_index.resize(rand_number);
 }
 
-pcl::PointCloud<pcl::Normal>::Ptr Common::normalEstimation(PointCloudT::Ptr p, unsigned int k){
+pcl::PointCloud<pcl::Normal>::Ptr  Common::normalEstimation(PointCloudT::Ptr p, unsigned int k){
     if(p == nullptr){
         std::cerr<<"法向计算: 输入点云错误,请重新输入!!"<<std::endl;
-        return false;
+        //return false;
     }
     else {
         pcl::NormalEstimation<PointT,pcl::Normal> ne;
@@ -22,6 +22,7 @@ pcl::PointCloud<pcl::Normal>::Ptr Common::normalEstimation(PointCloudT::Ptr p, u
         pcl::PointCloud<pcl::Normal>::Ptr cloud_normals (new pcl::PointCloud<pcl::Normal>);
     // Compute the features
         ne.compute (*cloud_normals);
+
         return cloud_normals;
     }
 }

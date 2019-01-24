@@ -30,6 +30,7 @@ struct PointCloudInfo
      std::string file_name=  "";
      size_t size = 0;
      std::string dim = "";
+    // PointCloudNormal::Ptr normal;
 };
 
 
@@ -98,14 +99,16 @@ private:
     //保存点云基础信息数组
     std::vector<PointCloudInfo<PointCloudT::Ptr>> v_PCI;
     std::vector<PointCloudInfo<PointCloudTRGB::Ptr>> v_PCRGBI;
+
     void initDocketWidget();
 
     //存贮treewidget中当前选中点云的唯一id
     std::string current_id;
-    //检测是否计算了法向
-    bool normal_state = false;
+
     //存储法向量信息
     PointCloudNormal::Ptr point_cloud_normal;
+    //map存储current_id和其对应的法向量
+    std::map<std::string, PointCloudNormal::Ptr> m_id_normal;
 };
 
 
