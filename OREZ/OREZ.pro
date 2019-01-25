@@ -26,15 +26,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         orez.cpp \
-    normalestdialog.cpp
+    normalestdialog.cpp \
+    boundarydialog.cpp \
+    filtervoxeldialog.cpp
 
 HEADERS += \
         orez.h \
-    normalestdialog.h
+    normalestdialog.h \
+    boundarydialog.h \
+    filtervoxeldialog.h
 
 FORMS += \
         orez.ui \
-    normalestdialog.ui
+    normalestdialog.ui \
+    boundarydialog.ui \
+    filtervoxeldialog.ui
 
 DISTFILES += \
     ../OREZ.pri

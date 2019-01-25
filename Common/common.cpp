@@ -5,6 +5,8 @@ Common::Common()
 {
     rand_number = 20;
     v_index.resize(rand_number);
+    //tree = new pcl::search::KdTree<PointT>;
+    //tree_rgb = new pcl::search::KdTree<PointTRGB>();
 }
 
 pcl::PointCloud<pcl::Normal>::Ptr  Common::normalEstimation(PointCloudT::Ptr p, unsigned int k){
@@ -92,4 +94,73 @@ double Common::estimateDistance(const PointCloudTRGB::Ptr p){
 }
 
 
+PointCloudT::Ptr Common::boundaryEstimation(PointCloudT::Ptr p, unsigned int k_normal,unsigned K){
+    if(p != nullptr){
+        pcl::PointCloud<pcl::Boundary>::Ptr boundary(new pcl::PointCloud<pcl::Boundary>);
+        pcl::BoundaryEstimation<PointT,pcl::Normal,pcl::Boundary> est;
+        pcl::search::KdTree<PointT>::Ptr tree (new pcl::search::KdTree<PointT>());
 
+        est.setInputCloud(p);
+        est.setInputNormals(this->normalEstimation(p,k_normal));
+        est.setSearchMethod(tree);
+        est.setKSearch(K);
+        est.compute(*boundary);
+
+        PointCloudT::Ptr boundaryPoints(new PointCloudT);
+        for(size_t i = 0; i< p->size();i++){
+            int a = static_cast<int>(boundary->points[i].boundary_point);
+            if(a ==1){
+                (*boundaryPoints).push_back(p->points[i]);
+            }
+        }
+        return boundaryPoints;
+    }else{
+        std::cerr<<"请输入有效点云,用于计算法向量!!"<<endl;
+        return nullptr;
+    }
+
+}
+
+PointCloudTRGB::Ptr Common::boundaryEstimation(PointCloudTRGB::Ptr p, unsigned int k_normal,unsigned int K){
+    if(p != nullptr){
+        pcl::PointCloud<pcl::Boundary>::Ptr boundary(new pcl::PointCloud<pcl::Boundary>);
+        pcl::BoundaryEstimation<PointTRGB,pcl::Normal,pcl::Boundary> est;
+        pcl::search::KdTree<PointTRGB>::Ptr tree (new pcl::search::KdTree<PointTRGB>());
+
+        est.setInputCloud(p);
+        est.setInputNormals(this->normalEstimation(p,k_normal));
+        est.setSearchMethod(tree);
+        est.setKSearch(K);
+        est.compute(*boundary);
+
+        PointCloudTRGB::Ptr boundaryPoints(new PointCloudTRGB);
+        for(size_t i = 0; i< p->size();i++){
+            int a = static_cast<int>(boundary->points[i].boundary_point);
+            if(a ==1){
+                (*boundaryPoints).push_back(p->points[i]);
+            }
+        }
+        return boundaryPoints;
+    }else{
+        std::cerr<<"请输入有效点云,用于计算法向量!!"<<endl;
+        return nullptr;
+    }
+}
+
+PointCloudT::Ptr Common::filterByVoxel(PointCloudT::Ptr p, int dx, int dy, int dz){
+    pcl::VoxelGrid<PointT> voxel;
+    PointCloudT::Ptr out(new PointCloudT);
+    voxel.setInputCloud(p);
+    voxel.setLeafSize(dx,dy,dz);
+    voxel.filter(*out);
+    return out;
+}
+
+PointCloudTRGB::Ptr Common::filterByVoxelRGB(PointCloudTRGB::Ptr p, int dx, int dy, int dz){
+    pcl::VoxelGrid<PointTRGB> voxel;
+    PointCloudTRGB::Ptr out(new PointCloudTRGB);
+    voxel.setInputCloud(p);
+    voxel.setLeafSize(dx,dy,dz);
+    voxel.filter(*out);
+    return out;
+}

@@ -96,10 +96,16 @@
     <property name="title">
      <string>编辑</string>
     </property>
+    <widget class="QMenu" name="menu_10">
+     <property name="title">
+      <string>点云滤波</string>
+     </property>
+     <addaction name="action1"/>
+     <addaction name="action2"/>
+    </widget>
     <addaction name="action_16"/>
-    <addaction name="action_17"/>
     <addaction name="action_7"/>
-    <addaction name="action_18"/>
+    <addaction name="menu_10"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_7"/>
@@ -130,7 +136,7 @@
       <rect>
        <x>20</x>
        <y>0</y>
-       <width>121</width>
+       <width>231</width>
        <height>381</height>
       </rect>
      </property>
@@ -190,6 +196,9 @@
    </property>
   </action>
   <action name="action_10">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>边界识别</string>
    </property>
@@ -268,24 +277,30 @@
     <string>点云合并</string>
    </property>
   </action>
-  <action name="action_17">
-   <property name="text">
-    <string>点云精简</string>
-   </property>
-  </action>
   <action name="action_7">
    <property name="text">
     <string>点云分割</string>
    </property>
   </action>
-  <action name="action_18">
-   <property name="text">
-    <string>点云滤波</string>
-   </property>
-  </action>
   <action name="normal_action_19">
    <property name="text">
     <string>法向估计</string>
+   </property>
+  </action>
+  <action name="action1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>体素网格</string>
+   </property>
+  </action>
+  <action name="action2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>直通滤波器</string>
    </property>
   </action>
  </widget>

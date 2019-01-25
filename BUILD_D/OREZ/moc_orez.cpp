@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_OREZ_t {
-    QByteArrayData data[11];
-    char stringdata0[167];
+    QByteArrayData data[13];
+    char stringdata0[211];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,15 +39,18 @@ QT_MOC_LITERAL(4, 48, 21), // "on_action_5_triggered"
 QT_MOC_LITERAL(5, 70, 29), // "on_normal_action_19_triggered"
 QT_MOC_LITERAL(6, 100, 22), // "on_action_12_triggered"
 QT_MOC_LITERAL(7, 123, 7), // "checked"
-QT_MOC_LITERAL(8, 131, 12), // "widgetChange"
-QT_MOC_LITERAL(9, 144, 16), // "QTreeWidgetItem*"
-QT_MOC_LITERAL(10, 161, 5) // "state"
+QT_MOC_LITERAL(8, 131, 22), // "on_action_10_triggered"
+QT_MOC_LITERAL(9, 154, 20), // "on_action1_triggered"
+QT_MOC_LITERAL(10, 175, 12), // "widgetChange"
+QT_MOC_LITERAL(11, 188, 16), // "QTreeWidgetItem*"
+QT_MOC_LITERAL(12, 205, 5) // "state"
 
     },
     "OREZ\0on_action_3_triggered\0\0"
     "on_action_triggered\0on_action_5_triggered\0"
     "on_normal_action_19_triggered\0"
     "on_action_12_triggered\0checked\0"
+    "on_action_10_triggered\0on_action1_triggered\0"
     "widgetChange\0QTreeWidgetItem*\0state"
 };
 #undef QT_MOC_LITERAL
@@ -58,7 +61,7 @@ static const uint qt_meta_data_OREZ[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,12 +69,14 @@ static const uint qt_meta_data_OREZ[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   44,    2, 0x08 /* Private */,
-       3,    0,   45,    2, 0x08 /* Private */,
-       4,    0,   46,    2, 0x08 /* Private */,
-       5,    0,   47,    2, 0x08 /* Private */,
-       6,    1,   48,    2, 0x08 /* Private */,
-       8,    1,   51,    2, 0x0a /* Public */,
+       1,    0,   54,    2, 0x08 /* Private */,
+       3,    0,   55,    2, 0x08 /* Private */,
+       4,    0,   56,    2, 0x08 /* Private */,
+       5,    0,   57,    2, 0x08 /* Private */,
+       6,    1,   58,    2, 0x08 /* Private */,
+       8,    1,   61,    2, 0x08 /* Private */,
+       9,    1,   64,    2, 0x08 /* Private */,
+      10,    1,   67,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -79,7 +84,9 @@ static const uint qt_meta_data_OREZ[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,    7,
-    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void, QMetaType::Bool,    7,
+    QMetaType::Void, QMetaType::Bool,    7,
+    QMetaType::Void, 0x80000000 | 11,   12,
 
        0        // eod
 };
@@ -95,7 +102,9 @@ void OREZ::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 2: _t->on_action_5_triggered(); break;
         case 3: _t->on_normal_action_19_triggered(); break;
         case 4: _t->on_action_12_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->widgetChange((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 5: _t->on_action_10_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 6: _t->on_action1_triggered((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 7: _t->widgetChange((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -126,13 +135,13 @@ int OREZ::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

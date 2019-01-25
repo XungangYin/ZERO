@@ -41,7 +41,7 @@ public:
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         label = new QLabel(NormalEstDialog);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(30, 110, 301, 20));
+        label->setGeometry(QRect(30, 110, 271, 20));
         label_2 = new QLabel(NormalEstDialog);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(30, 150, 131, 20));

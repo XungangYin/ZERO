@@ -17,6 +17,8 @@
 #include "../common.h"
 #include "../Common/common.h"
 #include "normalestdialog.h"
+#include "boundarydialog.h"
+#include "filtervoxeldialog.h"
 
 #include <pcl/visualization/point_cloud_color_handlers.h>
 using namespace  std;
@@ -64,10 +66,14 @@ private slots:
 
     void on_action_12_triggered(bool checked); //显示当前选中点云的法向量()
 
+    void on_action_10_triggered(bool checked);  //边界识别
+
+    void on_action1_triggered(bool checked);   //体素网格滤波
+
 public:
     bool addPCDFileView(const string &path);
 
-    void updateMessage(QString info); //状态栏显示点云文件名，点数，类型(xyzOrrgb)
+    void updateMessage(std::string info); //状态栏显示点云文件名，点数，类型(xyzOrrgb)
 
     //std::string getFileName(std::string path); //获取点云文件的名字
     template <class T>

@@ -50,10 +50,10 @@ public:
     QAction *actionSAC_IA;
     QAction *actionMLS;
     QAction *action_16;
-    QAction *action_17;
     QAction *action_7;
-    QAction *action_18;
     QAction *normal_action_19;
+    QAction *action1;
+    QAction *action2;
     QWidget *centralWidget;
     QVTKWidget *qvtkwidget;
     QMenuBar *menuBar;
@@ -65,6 +65,7 @@ public:
     QMenu *menu_4;
     QMenu *menu_5;
     QMenu *menu_7;
+    QMenu *menu_10;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QDockWidget *LayerDialog;
@@ -92,6 +93,7 @@ public:
         action_9->setObjectName(QStringLiteral("action_9"));
         action_10 = new QAction(OREZ);
         action_10->setObjectName(QStringLiteral("action_10"));
+        action_10->setCheckable(true);
         actionAABB = new QAction(OREZ);
         actionAABB->setObjectName(QStringLiteral("actionAABB"));
         action_11 = new QAction(OREZ);
@@ -121,14 +123,16 @@ public:
         actionMLS->setObjectName(QStringLiteral("actionMLS"));
         action_16 = new QAction(OREZ);
         action_16->setObjectName(QStringLiteral("action_16"));
-        action_17 = new QAction(OREZ);
-        action_17->setObjectName(QStringLiteral("action_17"));
         action_7 = new QAction(OREZ);
         action_7->setObjectName(QStringLiteral("action_7"));
-        action_18 = new QAction(OREZ);
-        action_18->setObjectName(QStringLiteral("action_18"));
         normal_action_19 = new QAction(OREZ);
         normal_action_19->setObjectName(QStringLiteral("normal_action_19"));
+        action1 = new QAction(OREZ);
+        action1->setObjectName(QStringLiteral("action1"));
+        action1->setCheckable(true);
+        action2 = new QAction(OREZ);
+        action2->setObjectName(QStringLiteral("action2"));
+        action2->setCheckable(true);
         centralWidget = new QWidget(OREZ);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkwidget = new QVTKWidget(centralWidget);
@@ -154,6 +158,8 @@ public:
         menu_5->setObjectName(QStringLiteral("menu_5"));
         menu_7 = new QMenu(menuBar);
         menu_7->setObjectName(QStringLiteral("menu_7"));
+        menu_10 = new QMenu(menu_7);
+        menu_10->setObjectName(QStringLiteral("menu_10"));
         OREZ->setMenuBar(menuBar);
         mainToolBar = new QToolBar(OREZ);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -170,7 +176,7 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         pointCloudTree->setHeaderItem(__qtreewidgetitem);
         pointCloudTree->setObjectName(QStringLiteral("pointCloudTree"));
-        pointCloudTree->setGeometry(QRect(20, 0, 121, 381));
+        pointCloudTree->setGeometry(QRect(20, 0, 231, 381));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(2);
@@ -210,9 +216,10 @@ public:
         menu_8->addAction(normal_action_19);
         menu_5->addAction(action_4);
         menu_7->addAction(action_16);
-        menu_7->addAction(action_17);
         menu_7->addAction(action_7);
-        menu_7->addAction(action_18);
+        menu_7->addAction(menu_10->menuAction());
+        menu_10->addAction(action1);
+        menu_10->addAction(action2);
 
         retranslateUi(OREZ);
 
@@ -243,10 +250,10 @@ public:
         actionSAC_IA->setText(QApplication::translate("OREZ", "SAC-IA", nullptr));
         actionMLS->setText(QApplication::translate("OREZ", "MLS\346\263\225\345\220\221\347\273\237\344\270\200", nullptr));
         action_16->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\345\220\210\345\271\266", nullptr));
-        action_17->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\347\262\276\347\256\200", nullptr));
         action_7->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\345\210\206\345\211\262", nullptr));
-        action_18->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\346\273\244\346\263\242", nullptr));
         normal_action_19->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241", nullptr));
+        action1->setText(QApplication::translate("OREZ", "\344\275\223\347\264\240\347\275\221\346\240\274", nullptr));
+        action2->setText(QApplication::translate("OREZ", "\347\233\264\351\200\232\346\273\244\346\263\242\345\231\250", nullptr));
         menu->setTitle(QApplication::translate("OREZ", "\346\226\207\344\273\266", nullptr));
         menu_2->setTitle(QApplication::translate("OREZ", "\346\270\262\346\237\223\346\230\276\347\244\272", nullptr));
         menu_3->setTitle(QApplication::translate("OREZ", "\350\256\241\347\256\227\345\267\245\345\205\267", nullptr));
@@ -255,6 +262,7 @@ public:
         menu_4->setTitle(QApplication::translate("OREZ", "\347\252\227\345\217\243", nullptr));
         menu_5->setTitle(QApplication::translate("OREZ", "\345\270\256\345\212\251", nullptr));
         menu_7->setTitle(QApplication::translate("OREZ", "\347\274\226\350\276\221", nullptr));
+        menu_10->setTitle(QApplication::translate("OREZ", "\347\202\271\344\272\221\346\273\244\346\263\242", nullptr));
         LayerDialog->setWindowTitle(QApplication::translate("OREZ", "Project", nullptr));
     } // retranslateUi
 

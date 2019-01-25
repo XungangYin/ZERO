@@ -74,12 +74,28 @@ void OREZ::on_action_triggered()
             ui->qvtkwidget->update();
         }
 
-    }else{                         //多个点云合并显示
-
+    }else{   //多个点云同时加载显示
+        this->viewer->removePointCloud("pcl_logo");
+        for(int i = 0; i< files.size();i++){
+             std_path = files[i].toStdString();
+             if(files[i].endsWith(".asc",Qt::CaseInsensitive)){
+                 PointCloudT::Ptr pc =  orezIO->ascToPCD(std_path);
+                 PointCloudInfo<PointCloudT::Ptr> info;
+                 info.p = pc;
+                 info.path = std_path;
+                 info.file_name = orezIO->file_name;
+                 info.size = this->orezIO->size;
+                 info.dim = this->orezIO->dim;
+                 v_PCI.push_back(info);
+                 creatTreeWidgetItem(info);
+                 viewer->addPointCloud(pc,info.file_name);
+                 viewer->resetCamera();
+                 ui->qvtkwidget->update();
+             }else{
+                addPCDFileView(std_path);
+             }
+        }
     }
-
- //   QTreeWidgetItem *item_1 = new QTreeWidgetItem();
-
 }
 
 bool OREZ::addPCDFileView(const string &path){
@@ -162,8 +178,8 @@ void OREZ::on_action_5_triggered()
         } */
 }
 
-void OREZ::updateMessage(QString info){
-     ui->statusBar->showMessage(info,100000);
+void OREZ::updateMessage(std::string info){
+     ui->statusBar->showMessage("Current PointCloud is :  "+QString::fromStdString(info) );
 }
 
 void OREZ::initDocketWidget(){
@@ -222,6 +238,7 @@ void OREZ::widgetChange(QTreeWidgetItem * state){
 
    QString qstr = state->text(0);  //获取当前点击的item的text作为点云id
    current_id = qstr.toStdString();
+   this->updateMessage(current_id);
    if(state->checkState(0) == Qt::Checked){
          state->setSelected(true);  //改变该item的选中背景色状态
          PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);  //先计算xyz格式的
@@ -313,5 +330,70 @@ void OREZ::on_action_12_triggered(bool checked)
     else{
           this->viewer->removePointCloud(current_id+"0");
           ui->qvtkwidget->update();
+    }
+}
+
+//边界识别
+void OREZ::on_action_10_triggered(bool checked)
+{
+    if(checked == true){
+        BoundaryDialog *boundary  = new BoundaryDialog;
+        boundary->exec();
+        unsigned int k1 = boundary->getNormalValue();
+        unsigned int k2 = boundary->getBoundaryValve();
+        //此处应该判断current_id是否存在且合理
+        PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
+        if(a.p != nullptr){
+            PointCloudT::Ptr boundaryP = common->boundaryEstimation(a.p,k1,k2);
+           // pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,255,0,0);
+            this->viewer->addPointCloud(boundaryP,current_id+"b");
+            this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,255,0,0,current_id+"b"); //边界点云用红色显示
+            this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");  //设置边界点大小为2个单位
+
+        }else{
+            PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            PointCloudTRGB::Ptr boundaryP = common->boundaryEstimation(a.p,k1,k2);
+            pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(a.p,255,0,0);  //设置点云颜色的另一种方式
+            this->viewer->addPointCloud(boundaryP,v,current_id+"b");
+            this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");
+
+        }
+         ui->qvtkwidget->update();
+    }
+    else{
+       // ui->action_12->setChecked(false);
+        this->viewer->removePointCloud(current_id+"b");
+        ui->qvtkwidget->update();
+        //QMessageBox::warning(this,"警告：","请先计算该点云的边界...");
+    }
+}
+
+void OREZ::on_action1_triggered(bool checked)
+{
+    if(checked == true){
+        FilterVoxelDialog *voxel_filter = new FilterVoxelDialog;
+        voxel_filter->exec();
+        //此处应该判断current_id是否存在且合理
+        PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
+        if(a.p != nullptr){
+            PointCloudT::Ptr filter = common->filterByVoxel(a.p,voxel_filter->getX(),voxel_filter->getY(),voxel_filter->getZ());
+           // pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,255,0,0);
+            this->viewer->addPointCloud(filter,current_id+"f");
+            //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,255,0,0,current_id+"f"); //边界点云用红色显示
+            //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"f");  //设置边界点大小为2个单位
+
+        }else{
+            PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            PointCloudTRGB::Ptr filter = common->filterByVoxelRGB(a.p,voxel_filter->getX(),voxel_filter->getY(),voxel_filter->getZ());
+            //pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(a.p,255,0,0);  //设置点云颜色的另一种方式
+            this->viewer->addPointCloud(filter,current_id+"f");
+           // this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");
+
+        }
+         ui->qvtkwidget->update();
+    }
+    else{
+        this->viewer->removePointCloud(current_id+"f");
+        ui->qvtkwidget->update();
     }
 }
