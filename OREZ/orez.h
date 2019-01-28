@@ -16,9 +16,12 @@
 #include "../OREZ_IO/orezio.h"
 #include "../common.h"
 #include "../Common/common.h"
+#include "../OREZ_Reconstruct/orez_reconstruct.h"
+
 #include "normalestdialog.h"
 #include "boundarydialog.h"
 #include "filtervoxeldialog.h"
+#include "poissonreconstructiondialog.h"
 
 #include <pcl/visualization/point_cloud_color_handlers.h>
 using namespace  std;
@@ -70,6 +73,8 @@ private slots:
 
     void on_action1_triggered(bool checked);   //体素网格滤波
 
+    void on_actionPoisson_triggered(bool checked);  //泊松重建
+
 public:
     bool addPCDFileView(const string &path);
 
@@ -102,6 +107,9 @@ private:
     OrezIO *orezIO;
     //common模块
     Common *common;
+    //重建模块
+    OREZ_Reconstruct *reconstruct = new OREZ_Reconstruct;
+
     //保存点云基础信息数组
     std::vector<PointCloudInfo<PointCloudT::Ptr>> v_PCI;
     std::vector<PointCloudInfo<PointCloudTRGB::Ptr>> v_PCRGBI;

@@ -71,9 +71,15 @@
      </property>
      <addaction name="normal_action_19"/>
     </widget>
+    <widget class="QMenu" name="menu_9">
+     <property name="title">
+      <string>重建</string>
+     </property>
+     <addaction name="actionPoisson"/>
+    </widget>
     <addaction name="menu_8"/>
     <addaction name="menu_6"/>
-    <addaction name="action_8"/>
+    <addaction name="menu_9"/>
     <addaction name="action_9"/>
     <addaction name="action_10"/>
     <addaction name="actionAABB"/>
@@ -183,11 +189,6 @@
   <action name="action_5">
    <property name="text">
     <string>重置</string>
-   </property>
-  </action>
-  <action name="action_8">
-   <property name="text">
-    <string>重建</string>
    </property>
   </action>
   <action name="action_9">
@@ -301,6 +302,14 @@
    </property>
    <property name="text">
     <string>直通滤波器</string>
+   </property>
+  </action>
+  <action name="actionPoisson">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>泊松重建</string>
    </property>
   </action>
  </widget>

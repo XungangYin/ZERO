@@ -11,7 +11,7 @@ OREZ::OREZ(QWidget *parent) :
     //初化输入模块
     orezIO =  new OrezIO;
     common = new Common;
-
+    reconstruct = new OREZ_Reconstruct;
     //设置默认点云
     initDocketWidget();
 
@@ -396,4 +396,36 @@ void OREZ::on_action1_triggered(bool checked)
         this->viewer->removePointCloud(current_id+"f");
         ui->qvtkwidget->update();
     }
+}
+
+void OREZ::on_actionPoisson_triggered(bool checked)
+{
+    if(checked == true){
+        PoissonReconstructionDialog *poisson = new PoissonReconstructionDialog;
+        poisson->exec();
+        bool confidence = poisson->getConfidence();
+        unsigned int sampler = poisson->getSamplePerNode();
+        unsigned int depth =  poisson->getDepth();
+        float scale = poisson->getScale();
+
+        //此处应该判断current_id是否存在且合理
+        PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
+        if(a.p != nullptr){
+            pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
+            this->viewer->addPolygonMesh(mesh,current_id+"m");
+            ui->qvtkwidget->update();
+        }
+        else{
+//            PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+//            pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
+//            this->viewer->addPolygonMesh(mesh,current_id+"m");
+//            ui->qvtkwidget->update();
+        }
+
+    }
+    else{
+        this->viewer->removePointCloud(current_id+"m");
+        ui->qvtkwidget->update();
+    }
+
 }

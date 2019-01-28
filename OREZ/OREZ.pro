@@ -28,19 +28,22 @@ SOURCES += \
         orez.cpp \
     normalestdialog.cpp \
     boundarydialog.cpp \
-    filtervoxeldialog.cpp
+    filtervoxeldialog.cpp \
+    poissonreconstructiondialog.cpp
 
 HEADERS += \
         orez.h \
     normalestdialog.h \
     boundarydialog.h \
-    filtervoxeldialog.h
+    filtervoxeldialog.h \
+    poissonreconstructiondialog.h
 
 FORMS += \
         orez.ui \
     normalestdialog.ui \
     boundarydialog.ui \
-    filtervoxeldialog.ui
+    filtervoxeldialog.ui \
+    poissonreconstructiondialog.ui
 
 DISTFILES += \
     ../OREZ.pri
@@ -59,4 +62,10 @@ else:unix: LIBS += -L$$OUT_PWD/../Common/ -lCommon
 INCLUDEPATH += $$PWD/../Common
 DEPENDPATH += $$PWD/../Common
 
-RESOURCES +=
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../OREZ_Reconstruct/release/ -lOREZ_Reconstruct
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../OREZ_Reconstruct/debug/ -lOREZ_Reconstruct
+else:unix: LIBS += -L$$OUT_PWD/../OREZ_Reconstruct/ -lOREZ_Reconstruct
+
+INCLUDEPATH += $$PWD/../OREZ_Reconstruct
+DEPENDPATH += $$PWD/../OREZ_Reconstruct

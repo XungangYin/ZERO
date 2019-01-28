@@ -5,6 +5,8 @@ CONFIG += C++11
 SUBDIRS += \
     OREZ_IO \
     Common \
+    OREZ_Reconstruct \
     OREZ
+
 
 
