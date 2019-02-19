@@ -54,6 +54,7 @@ public:
     QAction *action1;
     QAction *action2;
     QAction *actionPoisson;
+    QAction *normal_action_mls;
     QWidget *centralWidget;
     QVTKWidget *qvtkwidget;
     QMenuBar *menuBar;
@@ -135,6 +136,9 @@ public:
         actionPoisson = new QAction(OREZ);
         actionPoisson->setObjectName(QStringLiteral("actionPoisson"));
         actionPoisson->setCheckable(true);
+        normal_action_mls = new QAction(OREZ);
+        normal_action_mls->setObjectName(QStringLiteral("normal_action_mls"));
+        normal_action_mls->setCheckable(true);
         centralWidget = new QWidget(OREZ);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkwidget = new QVTKWidget(centralWidget);
@@ -218,6 +222,7 @@ public:
         menu_6->addAction(actionICP);
         menu_6->addAction(actionSAC_IA);
         menu_8->addAction(normal_action_19);
+        menu_8->addAction(normal_action_mls);
         menu_9->addAction(actionPoisson);
         menu_5->addAction(action_4);
         menu_7->addAction(action_16);
@@ -255,10 +260,11 @@ public:
         actionMLS->setText(QApplication::translate("OREZ", "MLS\346\263\225\345\220\221\347\273\237\344\270\200", nullptr));
         action_16->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\345\220\210\345\271\266", nullptr));
         action_7->setText(QApplication::translate("OREZ", "\347\202\271\344\272\221\345\210\206\345\211\262", nullptr));
-        normal_action_19->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241", nullptr));
+        normal_action_19->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241(SVD)", nullptr));
         action1->setText(QApplication::translate("OREZ", "\344\275\223\347\264\240\347\275\221\346\240\274", nullptr));
         action2->setText(QApplication::translate("OREZ", "\347\233\264\351\200\232\346\273\244\346\263\242\345\231\250", nullptr));
         actionPoisson->setText(QApplication::translate("OREZ", "\346\263\212\346\235\276\351\207\215\345\273\272", nullptr));
+        normal_action_mls->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241(MLS)", nullptr));
         menu->setTitle(QApplication::translate("OREZ", "\346\226\207\344\273\266", nullptr));
         menu_2->setTitle(QApplication::translate("OREZ", "\346\270\262\346\237\223\346\230\276\347\244\272", nullptr));
         menu_3->setTitle(QApplication::translate("OREZ", "\350\256\241\347\256\227\345\267\245\345\205\267", nullptr));

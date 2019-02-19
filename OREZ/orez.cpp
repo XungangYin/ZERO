@@ -216,7 +216,7 @@ bool OREZ::creatTreeWidgetItem(T info){
         title->setText(0,QString::fromStdString(info.file_name));
         title->setCheckState(0, Qt::Checked);
         //检测节点的状态改变 .信号槽函数不能带参数
-        connect(ui->pointCloudTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(widgetChange(QTreeWidgetItem *)));
+        connect(ui->pointCloudTree,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(widgetClick(QTreeWidgetItem *)));
       //  connect(ui->pointCloudTree,SIGNAL(itemChanged(QTreeWidgetItem*,int)),this,SLOT(widgetChange(QTreeWidgetItem *)));
 
         QTreeWidgetItem *g = new QTreeWidgetItem(title);
@@ -234,8 +234,7 @@ bool OREZ::creatTreeWidgetItem(T info){
         return true;
    }
 }
-void OREZ::widgetChange(QTreeWidgetItem * state){
-
+void OREZ::widgetClick(QTreeWidgetItem * state){
    QString qstr = state->text(0);  //获取当前点击的item的text作为点云id
    current_id = qstr.toStdString();
    this->updateMessage(current_id);
@@ -311,7 +310,6 @@ void OREZ::on_action_12_triggered(bool checked)
                 pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,0,255,0);    //设置点云为绿色
                 this->viewer->updatePointCloud(a.p,v,current_id);
                 double normal_length = common->estimateDistance(a.p);
-               // auto normal = m_id_normal.find(current_id)->second;
                 this->viewer->addPointCloudNormals<PointT,pcl::Normal>(a.p,normal->second,10,normal_length*15,current_id+"0");
             }else{
                 PointCloudInfo<PointCloudTRGB::Ptr> b = this->getPCRGBInfo(current_id);
@@ -416,10 +414,10 @@ void OREZ::on_actionPoisson_triggered(bool checked)
             ui->qvtkwidget->update();
         }
         else{
-//            PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
-//            pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
-//            this->viewer->addPolygonMesh(mesh,current_id+"m");
-//            ui->qvtkwidget->update();
+            PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
+            this->viewer->addPolygonMesh(mesh,current_id+"m");
+            ui->qvtkwidget->update();
         }
 
     }
@@ -428,4 +426,26 @@ void OREZ::on_actionPoisson_triggered(bool checked)
         ui->qvtkwidget->update();
     }
 
+}
+
+
+//msl法向估计并显示
+void OREZ::on_normal_action_mls_triggered(bool checked)
+{
+    if(checked == true){
+        MLSNormalDialog *mlsNormalEst = new MLSNormalDialog;
+        mlsNormalEst->exec();
+        double r =  mlsNormalEst->getRadius();
+        PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);
+        if(a.p != nullptr){
+            PointCloudWithNormal::Ptr mls_normal = common->normalEstimationByMLS(a.p,r);
+            double normal_length = common->estimateDistance(a.p);
+            this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,0,255,0,current_id); //
+            this->viewer->addPointCloudNormals<pcl::PointNormal>(mls_normal,10,normal_length*10,current_id+"mls");
+
+        }
+    }else{
+        this->viewer->removePointCloud(current_id+"mls");
+    }
+     ui->qvtkwidget->update();
 }

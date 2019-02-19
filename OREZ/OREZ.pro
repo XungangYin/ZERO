@@ -29,21 +29,24 @@ SOURCES += \
     normalestdialog.cpp \
     boundarydialog.cpp \
     filtervoxeldialog.cpp \
-    poissonreconstructiondialog.cpp
+    poissonreconstructiondialog.cpp \
+    mlsnormaldialog.cpp
 
 HEADERS += \
         orez.h \
     normalestdialog.h \
     boundarydialog.h \
     filtervoxeldialog.h \
-    poissonreconstructiondialog.h
+    poissonreconstructiondialog.h \
+    mlsnormaldialog.h
 
 FORMS += \
         orez.ui \
     normalestdialog.ui \
     boundarydialog.ui \
     filtervoxeldialog.ui \
-    poissonreconstructiondialog.ui
+    poissonreconstructiondialog.ui \
+    mlsnormaldialog.ui
 
 DISTFILES += \
     ../OREZ.pri

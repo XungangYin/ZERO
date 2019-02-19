@@ -7,6 +7,8 @@
 #include <pcl/features/boundary.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/passthrough.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/surface/mls.h>
 
 using namespace std;
 
@@ -16,7 +18,7 @@ class COMMONSHARED_EXPORT Common
 private:
         std::vector<int> v_index;
         int rand_number;
-        // pcl::search::KdTree<pcl::PointXYZ>::Ptr tree;
+        pcl::search::KdTree<pcl::PointXYZ>::Ptr tree;
         //pcl::search::KdTree<PointTRGB>::Ptr tree_rgb;
 
 public:
@@ -35,6 +37,10 @@ public:
     //体素网格滤波
     PointCloudT::Ptr filterByVoxel(PointCloudT::Ptr p, int dx, int dy,int dz);
     PointCloudTRGB::Ptr filterByVoxelRGB(PointCloudTRGB::Ptr p, int dx, int dy,int dz);
+
+    //MLS法向估计(统一法向)
+    PointCloudWithNormal::Ptr normalEstimationByMLS(PointCloudT::Ptr p,float radius);
+
 };
 
 #endif // COMMON_H

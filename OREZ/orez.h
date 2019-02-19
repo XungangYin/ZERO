@@ -22,6 +22,7 @@
 #include "boundarydialog.h"
 #include "filtervoxeldialog.h"
 #include "poissonreconstructiondialog.h"
+#include "mlsnormaldialog.h"
 
 #include <pcl/visualization/point_cloud_color_handlers.h>
 using namespace  std;
@@ -75,6 +76,8 @@ private slots:
 
     void on_actionPoisson_triggered(bool checked);  //泊松重建
 
+    void on_normal_action_mls_triggered(bool checked);  //MLS法向计算
+
 public:
     bool addPCDFileView(const string &path);
 
@@ -97,7 +100,7 @@ public:
 
 
 public slots:
-    void widgetChange(QTreeWidgetItem * state);
+    void widgetClick(QTreeWidgetItem * state);
 
 
 private:

@@ -15,7 +15,7 @@ public:
     OREZ_Reconstruct();
 
     pcl::PolygonMesh poissonReconstruction(PointCloudT::Ptr p,bool confidence,unsigned int depth,unsigned int samplePerNode,float scale/*,unsigned int solverDivide*/);
-    //pcl::PolygonMesh poissonReconstruction(PointCloudTRGB::Ptr p,bool confidence,unsigned int depth,unsigned int samplePerNode,float scale/*,unsigned int solverDivide*/);
+    pcl::PolygonMesh poissonReconstruction(PointCloudTRGB::Ptr p,bool confidence,unsigned int depth,unsigned int samplePerNode,float scale/*,unsigned int solverDivide*/);
 
 
 private:

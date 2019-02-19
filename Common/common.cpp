@@ -5,7 +5,7 @@ Common::Common()
 {
     rand_number = 20;
     v_index.resize(rand_number);
-    //tree = new pcl::search::KdTree<PointT>;
+    tree.reset();
     //tree_rgb = new pcl::search::KdTree<PointTRGB>();
 }
 
@@ -163,4 +163,21 @@ PointCloudTRGB::Ptr Common::filterByVoxelRGB(PointCloudTRGB::Ptr p, int dx, int 
     voxel.setLeafSize(dx,dy,dz);
     voxel.filter(*out);
     return out;
+}
+
+
+PointCloudWithNormal::Ptr Common::normalEstimationByMLS(PointCloudT::Ptr p,float radius){
+    PointCloudWithNormal mls_points;
+    pcl::MovingLeastSquares<PointT,PointNormal> mls;
+    mls.setComputeNormals(true);
+    mls.setInputCloud(p);
+    mls.setPolynomialFit(true); //采用多项式拟合来优化
+    mls.setPolynomialOrder(2); //多项式拟合阶数
+    mls.setSearchMethod(tree);
+    mls.setSearchRadius(radius);
+
+    mls.process(mls_points);
+
+    //PointCloudWithNormal::Ptr mls_normal (new PointCloudWithNormal);
+    return mls_points.makeShared();
 }

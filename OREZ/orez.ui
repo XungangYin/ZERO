@@ -70,6 +70,7 @@
       <string>法向</string>
      </property>
      <addaction name="normal_action_19"/>
+     <addaction name="normal_action_mls"/>
     </widget>
     <widget class="QMenu" name="menu_9">
      <property name="title">
@@ -285,7 +286,7 @@
   </action>
   <action name="normal_action_19">
    <property name="text">
-    <string>法向估计</string>
+    <string>法向估计(SVD)</string>
    </property>
   </action>
   <action name="action1">
@@ -310,6 +311,14 @@
    </property>
    <property name="text">
     <string>泊松重建</string>
+   </property>
+  </action>
+  <action name="normal_action_mls">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>法向估计(MLS)</string>
    </property>
   </action>
  </widget>
