@@ -11,6 +11,8 @@
 #include <QTextEdit>
 #include <QLineEdit>
 #include <QTreeWidgetItem>
+#include <QColorDialog>
+#include <QPlainTextEdit>
 
 //othres
 #include "../OREZ_IO/orezio.h"
@@ -77,6 +79,8 @@ private slots:
     void on_actionPoisson_triggered(bool checked);  //泊松重建
 
     void on_normal_action_mls_triggered(bool checked);  //MLS法向计算
+
+    void on_action_15_triggered();  //给当前点云设置显示颜色
 
 public:
     bool addPCDFileView(const string &path);

@@ -18,6 +18,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QTreeWidget>
@@ -55,6 +56,7 @@ public:
     QAction *action2;
     QAction *actionPoisson;
     QAction *normal_action_mls;
+    QAction *action_6;
     QWidget *centralWidget;
     QVTKWidget *qvtkwidget;
     QMenuBar *menuBar;
@@ -73,6 +75,9 @@ public:
     QDockWidget *LayerDialog;
     QWidget *dockWidgetContents;
     QTreeWidget *pointCloudTree;
+    QDockWidget *Properties;
+    QWidget *dockWidgetContents_3;
+    QPlainTextEdit *plainTextEdit;
 
     void setupUi(QMainWindow *OREZ)
     {
@@ -139,6 +144,8 @@ public:
         normal_action_mls = new QAction(OREZ);
         normal_action_mls->setObjectName(QStringLiteral("normal_action_mls"));
         normal_action_mls->setCheckable(true);
+        action_6 = new QAction(OREZ);
+        action_6->setObjectName(QStringLiteral("action_6"));
         centralWidget = new QWidget(OREZ);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         qvtkwidget = new QVTKWidget(centralWidget);
@@ -180,11 +187,9 @@ public:
         dockWidgetContents = new QWidget();
         dockWidgetContents->setObjectName(QStringLiteral("dockWidgetContents"));
         pointCloudTree = new QTreeWidget(dockWidgetContents);
-        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
-        __qtreewidgetitem->setText(0, QStringLiteral("1"));
-        pointCloudTree->setHeaderItem(__qtreewidgetitem);
+        pointCloudTree->headerItem()->setText(0, QString());
         pointCloudTree->setObjectName(QStringLiteral("pointCloudTree"));
-        pointCloudTree->setGeometry(QRect(20, 0, 231, 381));
+        pointCloudTree->setGeometry(QRect(-10, 0, 158, 299));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(2);
@@ -193,6 +198,15 @@ public:
         pointCloudTree->setSizeIncrement(QSize(0, 1));
         LayerDialog->setWidget(dockWidgetContents);
         OREZ->addDockWidget(static_cast<Qt::DockWidgetArea>(1), LayerDialog);
+        Properties = new QDockWidget(OREZ);
+        Properties->setObjectName(QStringLiteral("Properties"));
+        dockWidgetContents_3 = new QWidget();
+        dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
+        plainTextEdit = new QPlainTextEdit(dockWidgetContents_3);
+        plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
+        plainTextEdit->setGeometry(QRect(0, 10, 104, 70));
+        Properties->setWidget(dockWidgetContents_3);
+        OREZ->addDockWidget(static_cast<Qt::DockWidgetArea>(1), Properties);
 
         menuBar->addAction(menu->menuAction());
         menuBar->addAction(menu_7->menuAction());
@@ -208,6 +222,7 @@ public:
         menu_2->addAction(action_13);
         menu_2->addAction(action_14);
         menu_2->addAction(action_15);
+        menu_2->addAction(action_6);
         menu_3->addAction(menu_8->menuAction());
         menu_3->addAction(menu_6->menuAction());
         menu_3->addAction(menu_9->menuAction());
@@ -265,6 +280,7 @@ public:
         action2->setText(QApplication::translate("OREZ", "\347\233\264\351\200\232\346\273\244\346\263\242\345\231\250", nullptr));
         actionPoisson->setText(QApplication::translate("OREZ", "\346\263\212\346\235\276\351\207\215\345\273\272", nullptr));
         normal_action_mls->setText(QApplication::translate("OREZ", "\346\263\225\345\220\221\344\274\260\350\256\241(MLS)", nullptr));
+        action_6->setText(QApplication::translate("OREZ", "\347\252\227\345\217\243\350\203\214\346\231\257", nullptr));
         menu->setTitle(QApplication::translate("OREZ", "\346\226\207\344\273\266", nullptr));
         menu_2->setTitle(QApplication::translate("OREZ", "\346\270\262\346\237\223\346\230\276\347\244\272", nullptr));
         menu_3->setTitle(QApplication::translate("OREZ", "\350\256\241\347\256\227\345\267\245\345\205\267", nullptr));
@@ -276,6 +292,7 @@ public:
         menu_7->setTitle(QApplication::translate("OREZ", "\347\274\226\350\276\221", nullptr));
         menu_10->setTitle(QApplication::translate("OREZ", "\347\202\271\344\272\221\346\273\244\346\263\242", nullptr));
         LayerDialog->setWindowTitle(QApplication::translate("OREZ", "Project", nullptr));
+        Properties->setWindowTitle(QString());
     } // retranslateUi
 
 };

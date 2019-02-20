@@ -188,6 +188,11 @@ void OREZ::initDocketWidget(){
     ui->LayerDialog->setWidget(ui->pointCloudTree);   // 只有这样,treewidget才随Docketwidget移动
     QAction *action = ui->LayerDialog->toggleViewAction();
     ui->mainToolBar->addAction(action);
+
+    ui->Properties->setWindowTitle("Propreties");
+    ui->Properties->setWidget(ui->plainTextEdit);
+
+    ui->plainTextEdit->appendPlainText("adsfasdf");
 }
 
 
@@ -446,6 +451,29 @@ void OREZ::on_normal_action_mls_triggered(bool checked)
         }
     }else{
         this->viewer->removePointCloud(current_id+"mls");
+    }
+     ui->qvtkwidget->update();
+}
+
+void OREZ::on_action_15_triggered()
+{
+    QColor color = QColorDialog::getColor(Qt::black, this, "Select color for point cloud");
+    if(color.isValid()){
+         PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);
+         if(a.p != nullptr){
+             pcl::visualization::PointCloudColorHandlerCustom<PointT> v(a.p,color.red(),color.green(),color.blue());
+             //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,1,1,220,current_id);
+             this->viewer->updatePointCloud(a.p,v,current_id);
+
+         }else{
+             PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+             pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(a.p,color.red(),color.green(),color.blue());
+             //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,1,1,220,current_id);
+             this->viewer->updatePointCloud(a.p,v,current_id);
+         }
+
+    }else{
+        return ;
     }
      ui->qvtkwidget->update();
 }
