@@ -43,6 +43,16 @@ void OREZ::on_action_3_triggered()
     this->close();
 }
 
+void OREZ::beginTime(){
+    begin = high_resolution_clock::now();
+}
+void OREZ::endTime(){
+    end = high_resolution_clock::now();
+}
+milliseconds OREZ::duringTime(){
+     return std::chrono::duration_cast<milliseconds>(end - begin);
+}
+
 //导入一个或者多个点云文件
 void OREZ::on_action_triggered()
 {
@@ -189,10 +199,11 @@ void OREZ::initDocketWidget(){
     QAction *action = ui->LayerDialog->toggleViewAction();
     ui->mainToolBar->addAction(action);
 
-    ui->Properties->setWindowTitle("Propreties");
+    ui->Properties->setWindowTitle("log......");
     ui->Properties->setWidget(ui->plainTextEdit);
+    ui->plainTextEdit->setReadOnly(true);
 
-    ui->plainTextEdit->appendPlainText("adsfasdf");
+//    ui->plainTextEdit->appendPlainText("adsfasdf");
 }
 
 
@@ -434,7 +445,7 @@ void OREZ::on_actionPoisson_triggered(bool checked)
 }
 
 
-//msl法向估计并显示
+//mls法向估计并显示
 void OREZ::on_normal_action_mls_triggered(bool checked)
 {
     if(checked == true){
@@ -443,7 +454,16 @@ void OREZ::on_normal_action_mls_triggered(bool checked)
         double r =  mlsNormalEst->getRadius();
         PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);
         if(a.p != nullptr){
+            beginTime();
             PointCloudWithNormal::Ptr mls_normal = common->normalEstimationByMLS(a.p,r);
+            endTime();
+            auto time = duringTime().count();
+            std::stringstream ss;
+            ss<<time;
+            char a = [];
+            string t;
+            t<<ss;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(t));
             double normal_length = common->estimateDistance(a.p);
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,0,255,0,current_id); //
             this->viewer->addPointCloudNormals<pcl::PointNormal>(mls_normal,10,normal_length*10,current_id+"mls");

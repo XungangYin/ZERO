@@ -27,7 +27,11 @@
 #include "mlsnormaldialog.h"
 
 #include <pcl/visualization/point_cloud_color_handlers.h>
+
+#include <chrono>
 using namespace  std;
+using std::chrono::milliseconds;
+using std::chrono::high_resolution_clock;
 
 ////声明一个结构体模板,保存点云信息
 template <class T>
@@ -101,6 +105,9 @@ public:
     PointCloudInfo<PointCloudT::Ptr> getPCInfo(const string current_id);
     PointCloudInfo<PointCloudTRGB::Ptr> getPCRGBInfo(const string current_id);
 
+    void beginTime();
+    void endTime();
+    milliseconds duringTime();
 
 
 public slots:
@@ -108,6 +115,10 @@ public slots:
 
 
 private:
+    //时间
+    high_resolution_clock::time_point begin;
+    high_resolution_clock::time_point end;
+
     //构造默认的显示点云
     PointCloudTRGB::Ptr cloud;
     //IO模块
