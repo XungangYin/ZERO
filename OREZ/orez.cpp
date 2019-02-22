@@ -56,7 +56,7 @@ string OREZ::duringTime(){
     ss<<mill;
     string time;
     ss>>time;
-    return time;
+    return  time+" msec";
 }
 
 //导入一个或者多个点云文件
@@ -68,7 +68,6 @@ void OREZ::on_action_triggered()
         QMessageBox::warning(this,"警告：","文件为空");
         return;
     }
-
     std::string std_path;
     if(files.size() ==1){           //单个点云
         viewer->removePointCloud("pcl_logo");
@@ -76,7 +75,9 @@ void OREZ::on_action_triggered()
         if(files[0].endsWith(".pcd",Qt::CaseInsensitive)){
              addPCDFileView(std_path);
         }else if(files[0].endsWith(".asc",Qt::CaseInsensitive)){
+            beginTime();
             PointCloudT::Ptr pc =  orezIO->ascToPCD(std_path);
+            endTime();
             PointCloudInfo<PointCloudT::Ptr> info;
             info.p = pc;
             info.path = std_path;
@@ -88,6 +89,9 @@ void OREZ::on_action_triggered()
             viewer->addPointCloud(pc,orezIO->file_name);
             viewer->resetCamera();
             ui->qvtkwidget->update();
+            string time  = duringTime();
+            string r = "Opened PoincCloud "+info.path+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }
 
     }else{   //多个点云同时加载显示
@@ -107,6 +111,10 @@ void OREZ::on_action_triggered()
                  viewer->addPointCloud(pc,info.file_name);
                  viewer->resetCamera();
                  ui->qvtkwidget->update();
+
+                 string time  = duringTime();
+                 string r = "Opened PoincCloud "+info.path+" in "+time;
+                 ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
              }else{
                 addPCDFileView(std_path);
              }
@@ -135,7 +143,9 @@ bool OREZ::addPCDFileView(const string &path){
     }
     for(unsigned int i = 5; i<15;++i){    //判断是否 r字符，只判断后几个字符即可
         if(tmp[i] == 'r'){
+            beginTime();
             PointCloudTRGB::Ptr pc = orezIO->loadPCDRGB(path);
+            endTime();
             viewer->addPointCloud(pc,orezIO->file_name);
             PointCloudInfo<PointCloudTRGB::Ptr> info;
             info.p = pc;
@@ -147,11 +157,16 @@ bool OREZ::addPCDFileView(const string &path){
             v_PCRGBI.push_back(info);
             creatTreeWidgetItem(info);
 
+            string time  = duringTime();
+            string r = "Opened PoincCloud "+info.path+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
             status = true;
             break;
         }else{
             if(i==14){                    //若没有r，则用普通方式读取
+               beginTime();
                PointCloudT::Ptr pc = orezIO->loadPCD(path);
+               endTime();
                viewer->addPointCloud(pc,orezIO->file_name);
                PointCloudInfo<PointCloudT::Ptr> info;
                info.p = pc;
@@ -161,6 +176,10 @@ bool OREZ::addPCDFileView(const string &path){
                info.dim = this->orezIO->dim;
                v_PCI.push_back(info);
                creatTreeWidgetItem(info);
+
+               string time  = duringTime();
+               string r = "Opened PoincCloud "+info.path+" in "+time;
+               ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
                status = true;
                 break;
             }
@@ -235,6 +254,7 @@ bool OREZ::creatTreeWidgetItem(T info){
        return false;
    else{
         QTreeWidgetItem *title = new QTreeWidgetItem(ui->pointCloudTree);
+        //ui->pointCloudTree->addTopLevelItem(title);  //
         title->setText(0,QString::fromStdString(info.file_name));
         title->setCheckState(0, Qt::Checked);
         //检测节点的状态改变 .信号槽函数不能带参数
@@ -261,7 +281,7 @@ void OREZ::widgetClick(QTreeWidgetItem * state){
    current_id = qstr.toStdString();
    this->updateMessage(current_id);
    if(state->checkState(0) == Qt::Checked){
-         state->setSelected(true);  //改变该item的选中背景色状态
+        // state->setSelected(true);  //改变该item的选中背景色状态
          PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);  //先计算xyz格式的
          if(a.p != nullptr){
               this->viewer->addPointCloud(a.p,current_id);
@@ -289,14 +309,22 @@ void OREZ::on_normal_action_19_triggered()
     PointCloudInfo<PointCloudT::Ptr> a=OREZ::getPCInfo(current_id);
     if(a.p != nullptr){
          //point_cloud_normal = common->normalEstimation(a.p,k);
-
+         beginTime();
          m_id_normal[current_id] = common->normalEstimation(a.p,k);
+         endTime();
+         string time  = duringTime();
+         string r = "Applied normal estimation of "+a.file_name+" in "+time;
+         ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
 
     }else{
         PointCloudInfo<PointCloudTRGB::Ptr> b = this->getPCRGBInfo(current_id);
         //point_cloud_normal = common->normalEstimation(b.p,k);
+        beginTime();
         m_id_normal[current_id] = common->normalEstimation(b.p,k);
-
+        endTime();
+        string time  = duringTime();
+        string r = "Applied normal estimation of "+b.file_name+" in "+time;
+        ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
     }
 }
 
@@ -364,19 +392,30 @@ void OREZ::on_action_10_triggered(bool checked)
         //此处应该判断current_id是否存在且合理
         PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
         if(a.p != nullptr){
+            beginTime();
             PointCloudT::Ptr boundaryP = common->boundaryEstimation(a.p,k1,k2);
+            endTime();
            // pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,255,0,0);
             this->viewer->addPointCloud(boundaryP,current_id+"b");
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,255,0,0,current_id+"b"); //边界点云用红色显示
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");  //设置边界点大小为2个单位
 
-        }else{
+            string time  = duringTime();
+            string r = "Applied boundary estimation of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
+
+        }else{          
             PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            beginTime();
             PointCloudTRGB::Ptr boundaryP = common->boundaryEstimation(a.p,k1,k2);
+            endTime();
             pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(a.p,255,0,0);  //设置点云颜色的另一种方式
             this->viewer->addPointCloud(boundaryP,v,current_id+"b");
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");
 
+            string time  = duringTime();
+            string r = "Applied boundary estimation of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }
          ui->qvtkwidget->update();
     }
@@ -396,19 +435,27 @@ void OREZ::on_action1_triggered(bool checked)
         //此处应该判断current_id是否存在且合理
         PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
         if(a.p != nullptr){
+            beginTime();
             PointCloudT::Ptr filter = common->filterByVoxel(a.p,voxel_filter->getX(),voxel_filter->getY(),voxel_filter->getZ());
-           // pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,255,0,0);
+            endTime();
+            // pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> v(a.p,255,0,0);
             this->viewer->addPointCloud(filter,current_id+"f");
             //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,255,0,0,current_id+"f"); //边界点云用红色显示
             //this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"f");  //设置边界点大小为2个单位
-
+            string time  = duringTime();
+            string r = "Applied filter by voxel of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }else{
             PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            beginTime();
             PointCloudTRGB::Ptr filter = common->filterByVoxelRGB(a.p,voxel_filter->getX(),voxel_filter->getY(),voxel_filter->getZ());
+            endTime();
             //pcl::visualization::PointCloudColorHandlerCustom<PointTRGB> v(a.p,255,0,0);  //设置点云颜色的另一种方式
             this->viewer->addPointCloud(filter,current_id+"f");
            // this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,2,current_id+"b");
-
+            string time  = duringTime();
+            string r = "Applied filter by voxel of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }
          ui->qvtkwidget->update();
     }
@@ -431,15 +478,25 @@ void OREZ::on_actionPoisson_triggered(bool checked)
         //此处应该判断current_id是否存在且合理
         PointCloudInfo<PointCloudT::Ptr> a = OREZ::getPCInfo(current_id);
         if(a.p != nullptr){
+            beginTime();
             pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
+            endTime();
             this->viewer->addPolygonMesh(mesh,current_id+"m");
             ui->qvtkwidget->update();
+            string time  = duringTime();
+            string r = "Applied poisson reconstruction of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }
         else{
             PointCloudInfo<PointCloudTRGB::Ptr> a = this->getPCRGBInfo(current_id);
+            beginTime();
             pcl::PolygonMesh mesh  = reconstruct->poissonReconstruction(a.p,confidence,depth,sampler,scale);
+            endTime();
             this->viewer->addPolygonMesh(mesh,current_id+"m");
             ui->qvtkwidget->update();
+            string time  = duringTime();
+            string r = "Applied poisson reconstruction of "+a.file_name+" in "+time;
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(r));
         }
 
     }
@@ -463,8 +520,8 @@ void OREZ::on_normal_action_mls_triggered(bool checked)
             beginTime();
             PointCloudWithNormal::Ptr mls_normal = common->normalEstimationByMLS(a.p,r);
             endTime();
-            string time = duringTime();
-            string result = a.file_name+"基于MLS算法计算法向量时间 :"+time +"毫秒";
+            auto time = duringTime();
+            string result = a.file_name+"基于MLS算法计算法向量时间 :"+time;
             ui->plainTextEdit->appendPlainText(QString::fromStdString(result));
             double normal_length = common->estimateDistance(a.p);
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,0,255,0,current_id); //
