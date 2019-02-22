@@ -49,8 +49,14 @@ void OREZ::beginTime(){
 void OREZ::endTime(){
     end = high_resolution_clock::now();
 }
-milliseconds OREZ::duringTime(){
-     return std::chrono::duration_cast<milliseconds>(end - begin);
+string OREZ::duringTime(){
+    auto t =  std::chrono::duration_cast<milliseconds>(end - begin);
+    int mill = t.count();
+    stringstream ss;
+    ss<<mill;
+    string time;
+    ss>>time;
+    return time;
 }
 
 //导入一个或者多个点云文件
@@ -457,13 +463,9 @@ void OREZ::on_normal_action_mls_triggered(bool checked)
             beginTime();
             PointCloudWithNormal::Ptr mls_normal = common->normalEstimationByMLS(a.p,r);
             endTime();
-            auto time = duringTime().count();
-            std::stringstream ss;
-            ss<<time;
-            char a = [];
-            string t;
-            t<<ss;
-            ui->plainTextEdit->appendPlainText(QString::fromStdString(t));
+            string time = duringTime();
+            string result = a.file_name+"基于MLS算法计算法向量时间 :"+time +"毫秒";
+            ui->plainTextEdit->appendPlainText(QString::fromStdString(result));
             double normal_length = common->estimateDistance(a.p);
             this->viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_COLOR,0,255,0,current_id); //
             this->viewer->addPointCloudNormals<pcl::PointNormal>(mls_normal,10,normal_length*10,current_id+"mls");

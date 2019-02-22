@@ -29,6 +29,7 @@
 #include <pcl/visualization/point_cloud_color_handlers.h>
 
 #include <chrono>
+#include <sstream>
 using namespace  std;
 using std::chrono::milliseconds;
 using std::chrono::high_resolution_clock;
@@ -107,7 +108,7 @@ public:
 
     void beginTime();
     void endTime();
-    milliseconds duringTime();
+    string duringTime();
 
 
 public slots:
