@@ -72,3 +72,10 @@ else:unix: LIBS += -L$$OUT_PWD/../OREZ_Reconstruct/ -lOREZ_Reconstruct
 
 INCLUDEPATH += $$PWD/../OREZ_Reconstruct
 DEPENDPATH += $$PWD/../OREZ_Reconstruct
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Orez_Clustering/release/ -lOrez_Clustering
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Orez_Clustering/debug/ -lOrez_Clustering
+else:unix: LIBS += -L$$OUT_PWD/../Orez_Clustering/ -lOrez_Clustering
+
+INCLUDEPATH += $$PWD/../Orez_Clustering
+DEPENDPATH += $$PWD/../Orez_Clustering

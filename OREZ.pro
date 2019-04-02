@@ -6,7 +6,8 @@ SUBDIRS += \
     OREZ_IO \
     Common \
     OREZ_Reconstruct \
-    OREZ
+    Orez_Clustering \
+     OREZ
 
 
 

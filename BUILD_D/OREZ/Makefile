@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../../OREZ -I. -isystem /usr/include/eigen3 -isystem /usr/include/vtk-6.2 -isystem /usr/include/boost -isystem /usr/local/include/pcl-1.8 -I../../OREZ_IO -I../../Common -I../../OREZ_Reconstruct -I../../../../Qt5.10.0/5.10.0/gcc_64/include -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../../OREZ -I. -isystem /usr/include/eigen3 -isystem /usr/include/vtk-6.2 -isystem /usr/include/boost -isystem /usr/local/include/pcl-1.8 -I../../OREZ_IO -I../../Common -I../../OREZ_Reconstruct -I../../Orez_Clustering -I../../../../Qt5.10.0/5.10.0/gcc_64/include -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui -I../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I../../../../Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = OREZ1.0.0
 DISTDIR = /home/yxg/PCL/ZERO/BUILD_D/OREZ/.tmp/OREZ1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../Common/ -lCommon -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_Reconstruct/ -lOREZ_Reconstruct -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libvtk*.so /usr/lib/x86_64-linux-gnu/libboost_*.so /usr/local/lib/libpcl_*.so -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_IO/ -lOREZ_IO -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../Common/ -lCommon -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../OREZ_Reconstruct/ -lOREZ_Reconstruct -L/home/yxg/PCL/ZERO/BUILD_D/OREZ/../Orez_Clustering/ -lOrez_Clustering -L/home/yxg/Qt5.10.0/5.10.0/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -795,6 +795,15 @@ moc_orez.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QColorDialog \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcolordialog.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QPlainTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qglyphrun.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qrawfont.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qfontdatabase.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
@@ -813,7 +822,7 @@ moc_orez.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../OREZ/orez.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/orez.h -o moc_orez.cpp
 
 moc_normalestdialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
@@ -922,7 +931,7 @@ moc_normalestdialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QD
 		../../OREZ/normalestdialog.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/normalestdialog.h -o moc_normalestdialog.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/normalestdialog.h -o moc_normalestdialog.cpp
 
 moc_boundarydialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
@@ -1031,7 +1040,7 @@ moc_boundarydialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDi
 		../../OREZ/boundarydialog.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/boundarydialog.h -o moc_boundarydialog.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/boundarydialog.h -o moc_boundarydialog.cpp
 
 moc_filtervoxeldialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
@@ -1140,7 +1149,7 @@ moc_filtervoxeldialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/
 		../../OREZ/filtervoxeldialog.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/filtervoxeldialog.h -o moc_filtervoxeldialog.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/filtervoxeldialog.h -o moc_filtervoxeldialog.cpp
 
 moc_poissonreconstructiondialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
@@ -1249,7 +1258,7 @@ moc_poissonreconstructiondialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/
 		../../OREZ/poissonreconstructiondialog.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/poissonreconstructiondialog.h -o moc_poissonreconstructiondialog.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/poissonreconstructiondialog.h -o moc_poissonreconstructiondialog.cpp
 
 moc_mlsnormaldialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialog \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialog.h \
@@ -1358,7 +1367,7 @@ moc_mlsnormaldialog.cpp: ../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QD
 		../../OREZ/mlsnormaldialog.h \
 		moc_predefs.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/bin/moc
-	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/mlsnormaldialog.h -o moc_mlsnormaldialog.cpp
+	/home/yxg/Qt5.10.0/5.10.0/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/mkspecs/linux-g++ -I/home/yxg/PCL/ZERO/OREZ -I/usr/include/eigen3 -I/usr/include/vtk-6.2 -I/usr/include/boost -I/usr/local/include/pcl-1.8 -I/home/yxg/PCL/ZERO/OREZ_IO -I/home/yxg/PCL/ZERO/Common -I/home/yxg/PCL/ZERO/OREZ_Reconstruct -I/home/yxg/PCL/ZERO/Orez_Clustering -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtWidgets -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtGui -I/home/yxg/Qt5.10.0/5.10.0/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../../OREZ/mlsnormaldialog.h -o moc_mlsnormaldialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1653,6 +1662,15 @@ main.o: ../../OREZ/main.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QColorDialog \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcolordialog.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QPlainTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qglyphrun.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qrawfont.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qfontdatabase.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
@@ -1825,6 +1843,15 @@ orez.o: ../../OREZ/orez.cpp ../../OREZ/orez.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtreewidgetitemiterator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QColorDialog \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qcolordialog.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QPlainTextEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qplaintextedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qabstracttextdocumentlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextlayout.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qglyphrun.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qrawfont.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qfontdatabase.h \
 		../../OREZ_IO/orezio.h \
 		../../OREZ_IO/orez_io_global.h \
 		../../common.h \
@@ -2573,7 +2600,49 @@ mlsnormaldialog.o: ../../OREZ/mlsnormaldialog.cpp ../../OREZ/mlsnormaldialog.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qfiledevice.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvector2d.h \
 		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtouchdevice.h \
-		ui_mlsnormaldialog.h
+		ui_mlsnormaldialog.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/QVariant \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QAction \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qaction.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qicon.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qactiongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QApplication \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qeventloop.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qguiapplication.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qinputmethod.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QButtonGroup \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qbuttongroup.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QDialogButtonBox \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QHeaderView \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qheaderview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemview.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qvalidator.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtCore/qregularexpression.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qstyle.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLabel \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlabel.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/QLineEdit \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextcursor.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextformat.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qpen.h \
+		../../../../Qt5.10.0/5.10.0/gcc_64/include/QtGui/qtextoption.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mlsnormaldialog.o ../../OREZ/mlsnormaldialog.cpp
 
 moc_orez.o: moc_orez.cpp 
